@@ -1,0 +1,2 @@
+rootProject.name='Apa Kabar Covid-19'
+include ':app'
