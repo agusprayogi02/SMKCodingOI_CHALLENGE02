@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_marginVertical="5dp"
+    android:layout_marginHorizontal="10dp"
     android:background="@android:color/black"
     android:padding="1dp"
     app:cardCornerRadius="5dp"
@@ -20,7 +21,7 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_margin="3dp"
-            android:background="@color/colorAccent" />
+            android:background="@android:color/transparent" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -36,9 +37,29 @@
                 android:layout_height="wrap_content"
                 android:text="Negara"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Terkonfirmasi  :  "
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/positif"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Meninggal  :  "
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,37 +69,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Terkonfirmasi  :  "
-                    android:textColor="@android:color/holo_orange_light"
+                    android:text="Last Update  :  "
+                    android:textStyle="bold"
+                    android:textColor="@android:color/holo_blue_light"
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/positif"
+                    android:id="@+id/last_update"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Meninggal  :  "
-                    android:textColor="@android:color/holo_orange_light"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kematian  :  "
-                    android:textColor="@android:color/holo_red_light"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/kematian"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Meninggal  :  "
-                    android:textColor="@android:color/holo_red_light"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/holo_blue_light"
                     android:textSize="12sp" />
             </LinearLayout>
 

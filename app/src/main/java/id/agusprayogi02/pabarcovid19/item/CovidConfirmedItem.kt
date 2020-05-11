@@ -2,9 +2,8 @@ package id.agusprayogi02.pabarcovid19.item
 
 
 import com.google.gson.annotations.SerializedName
-import androidx.annotation.Keep
+import java.io.Serializable
 
-@Keep
 data class CovidConfirmedItem(
     @SerializedName("active")
     val active: Int,
@@ -42,4 +41,4 @@ data class CovidConfirmedItem(
     val recovered: Int,
     @SerializedName("uid")
     val uid: Int
-)
+):Serializable
