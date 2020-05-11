@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="5dp"
     android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="5dp"
     android:background="@android:color/black"
-    android:padding="1dp"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="5dp">
+    android:padding="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,6 +58,7 @@
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="12sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,9 +69,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Meninggal  :  "
-                    android:textStyle="bold"
                     android:textColor="@android:color/holo_blue_light"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
