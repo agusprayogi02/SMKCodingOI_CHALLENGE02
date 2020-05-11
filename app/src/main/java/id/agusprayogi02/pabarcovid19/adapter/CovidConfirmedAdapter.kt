@@ -29,26 +29,31 @@ class CovidConfirmedAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(items[position],listener)
+        holder.bindItem(items[position], listener)
     }
 
     class ViewHolder(val context: Context, override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bindItem(item: CovidConfirmedItem, listener: (CovidConfirmedItem) -> Unit) {
             Glide.with(context)
-                .load("https://www.countryflags.io/"+item.iso2+"/shiny/64.png")
-                .apply{RequestOptions().override(64)}
+                .load("https://www.countryflags.io/" + item.iso2 + "/shiny/64.png")
+                .apply { RequestOptions().override(64) }
                 .into(flag_country)
             var ket = ""
-            if (item.provinceState.isNullOrEmpty()){
+            if (item.provinceState.isNullOrEmpty()) {
                 ket = ""
-            }else{
+            } else {
                 ket = " (${item.provinceState})"
             }
             negara.text = item.countryRegion + ket
             positif.text = "${item.confirmed} Orang"
-            last_update.text = Date(item.lastUpdate).toString()
-            detail_country.setOnClickListener { listener(item) }
+            val date = Date(item.lastUpdate)
+            last_update.text =
+                "Update : " + java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                    .format(date)
+            detail_country.setOnClickListener {
+                listener(item)
+            }
         }
     }
 }

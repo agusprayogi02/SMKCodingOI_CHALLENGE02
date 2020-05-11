@@ -3,10 +3,10 @@ package id.agusprayogi02.pabarcovid19.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import id.agusprayogi02.pabarcovid19.ui.CheckUpFragment
-import id.agusprayogi02.pabarcovid19.ui.HomeFragment
-import id.agusprayogi02.pabarcovid19.ui.NewsFragment
-import id.agusprayogi02.pabarcovid19.ui.ProfilFragment
+import id.agusprayogi02.pabarcovid19.ui.check.CheckUpFragment
+import id.agusprayogi02.pabarcovid19.ui.home.HomeFragment
+import id.agusprayogi02.pabarcovid19.ui.news.NewsFragment
+import id.agusprayogi02.pabarcovid19.ui.profile.ProfilFragment
 
 class ViewPagerAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {

@@ -1,4 +1,4 @@
-package id.agusprayogi02.pabarcovid19.ui
+package id.agusprayogi02.pabarcovid19.ui.check
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

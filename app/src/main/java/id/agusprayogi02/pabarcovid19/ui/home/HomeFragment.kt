@@ -1,5 +1,6 @@
-package id.agusprayogi02.pabarcovid19.ui
+package id.agusprayogi02.pabarcovid19.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import id.agusprayogi02.pabarcovid19.data.CovidService
 import id.agusprayogi02.pabarcovid19.data.apiRequest
 import id.agusprayogi02.pabarcovid19.data.httpClient
 import id.agusprayogi02.pabarcovid19.item.CovidConfirmedItem
+import id.agusprayogi02.pabarcovid19.session.CountryData
 import id.agusprayogi02.pabarcovid19.util.dismissLoading
 import id.agusprayogi02.pabarcovid19.util.showLoading
 import id.agusprayogi02.pabarcovid19.util.tampilToast
@@ -79,7 +81,7 @@ class HomeFragment : Fragment() {
                     }
                     else->{
                         tampilToast(context!!,"Gagal")
-                    }
+                }
                 }
             }
         })
@@ -88,7 +90,10 @@ class HomeFragment : Fragment() {
     private fun tampilData(body: List<CovidConfirmedItem>) {
         list_country.layoutManager = LinearLayoutManager(context)
         list_country.adapter = CovidConfirmedAdapter(context!!,body){
-            tampilToast(context!!,it.countryRegion)
+            CountryData.Session(context)
+            CountryData["country"] = it.countryRegion
+            val intent = Intent (context, CountryConfirmActivity::class.java)
+            startActivity(intent)
         }
     }
 
