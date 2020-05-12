@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import id.agusprayogi02.pabarcovid19.R
 import id.agusprayogi02.pabarcovid19.adapter.CovidConfirmedAdapter
+import id.agusprayogi02.pabarcovid19.data.AppConstants
 import id.agusprayogi02.pabarcovid19.data.CovidService
 import id.agusprayogi02.pabarcovid19.data.apiRequest
 import id.agusprayogi02.pabarcovid19.data.httpClient
@@ -27,6 +28,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeFragment : Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +58,7 @@ class HomeFragment : Fragment() {
         showLoading(context!!, swipe_refresh)
 
         val httpClient = httpClient()
-        val apiRequest = apiRequest<CovidService>(httpClient)
+        val apiRequest = apiRequest<CovidService>(httpClient, AppConstants.COVIDAPI_URL)
 
         val call = apiRequest.getConfirmed()
         call.enqueue(object : Callback<List<CovidConfirmedItem>> {
@@ -79,9 +84,9 @@ class HomeFragment : Fragment() {
                             }
                         }
                     }
-                    else->{
-                        tampilToast(context!!,"Gagal")
-                }
+                    else -> {
+                        tampilToast(context!!, "Gagal")
+                    }
                 }
             }
         })
@@ -89,10 +94,10 @@ class HomeFragment : Fragment() {
 
     private fun tampilData(body: List<CovidConfirmedItem>) {
         list_country.layoutManager = LinearLayoutManager(context)
-        list_country.adapter = CovidConfirmedAdapter(context!!,body){
+        list_country.adapter = CovidConfirmedAdapter(context!!, body) {
             CountryData.Session(context)
             CountryData["country"] = it.countryRegion
-            val intent = Intent (context, CountryConfirmActivity::class.java)
+            val intent = Intent(context, CountryConfirmActivity::class.java)
             startActivity(intent)
         }
     }

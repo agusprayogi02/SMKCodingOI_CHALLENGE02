@@ -34,7 +34,7 @@
                 android:layout_marginBottom="3dp"
                 android:text="@string/judul_berita"
                 android:textColor="@color/onyx"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -43,16 +43,16 @@
                 android:layout_height="wrap_content"
                 android:text="@string/isi_berita"
                 android:textColor="@color/manatee"
-                android:textSize="12dp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/news_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Published At : 2020-05-11T14:16:30Z"
+                android:text="@string/publikasi"
                 android:textColor="@color/cinder_grey"
-                android:textSize="13dp" />
+                android:textSize="13sp" />
         </LinearLayout>
     </LinearLayout>
 

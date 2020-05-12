@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.agusprayogi02.pabarcovid19.R
 import id.agusprayogi02.pabarcovid19.adapter.CountryConfirmAdapter
+import id.agusprayogi02.pabarcovid19.data.AppConstants
 import id.agusprayogi02.pabarcovid19.data.CovidService
 import id.agusprayogi02.pabarcovid19.data.apiRequest
 import id.agusprayogi02.pabarcovid19.data.httpClient
@@ -30,7 +31,7 @@ class CountryConfirmActivity : AppCompatActivity() {
     private fun apigetData() {
         showLoading(this, swipe_country)
         val httpClient = httpClient()
-        val apiRequest = apiRequest<CovidService>(httpClient)
+        val apiRequest = apiRequest<CovidService>(httpClient,AppConstants.COVIDAPI_URL)
 
         val data = CountryData["country"]
         val call = apiRequest.getCountryConfirm(data!!)

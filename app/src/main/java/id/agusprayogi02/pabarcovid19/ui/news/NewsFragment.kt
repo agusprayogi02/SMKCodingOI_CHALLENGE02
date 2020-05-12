@@ -1,34 +1,29 @@
 package id.agusprayogi02.pabarcovid19.ui.news
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import id.agusprayogi02.pabarcovid19.R
+import id.agusprayogi02.pabarcovid19.adapter.NewsAdapter
+import id.agusprayogi02.pabarcovid19.data.*
+import id.agusprayogi02.pabarcovid19.item.Article
+import id.agusprayogi02.pabarcovid19.item.NewsHealth
+import id.agusprayogi02.pabarcovid19.util.dismissLoading
+import id.agusprayogi02.pabarcovid19.util.showLoading
+import id.agusprayogi02.pabarcovid19.util.tampilToast
+import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.fragment_news.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [NewsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class NewsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -39,23 +34,54 @@ class NewsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_news, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment NewsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            NewsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        callApinews()
+    }
+
+    private fun callApinews() {
+        showLoading(context!!,swipe_news)
+
+        val httpClient = httpClient()
+        val apiNewsrequest = apiRequest<CovidService>(httpClient,AppConstants.NEWSAPI_URL)
+
+        val call = apiNewsrequest.getNews("id","health",AppConstants.NEWSAPI_TOKEN)
+        call.enqueue(object :Callback<NewsHealth>{
+
+            override fun onFailure(call: Call<NewsHealth>, t: Throwable) {
+                tampilToast(context!!,"Gagal "+t.message)
+                dismissLoading(swipe_news)
+            }
+
+            override fun onResponse(
+                call: Call<NewsHealth>,
+                response: Response<NewsHealth>
+            ) {
+                dismissLoading(swipe_news)
+
+                when {
+                    response.isSuccessful -> {
+                            tampilData(response.body()!!.articles)
+                    }
+                    else->{
+                        tampilToast(context!!,"Gagal")
+                    }
                 }
             }
+
+        })
     }
+
+    private fun tampilData(list: List<Article>) {
+        list_news.layoutManager = LinearLayoutManager(context)
+        list_news.adapter = NewsAdapter(context!!,list){
+            tampilToast(context!!,it.url)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        this.clearFindViewByIdCache()
+    }
+
 }
