@@ -22,9 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -38,18 +39,14 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 //    viewpager
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    implementation 'com.google.android.material:material:1.2.0-alpha06'
+    implementation 'com.google.android.material:material:1.1.0'
 //    recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 //    GSON
-    implementation "com.google.code.gson:gson:2.8.2​"
+    implementation "com.google.code.gson:gson:2.8.5"
 //    NETWORK
     implementation "com.squareup.okhttp3:okhttp:3.13.1"
     implementation "com.squareup.okhttp3:logging-interceptor:3.13.1"
@@ -62,4 +59,11 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
 //    chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+//    Loading
+    implementation 'com.wang.avi:library:2.1.3'
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

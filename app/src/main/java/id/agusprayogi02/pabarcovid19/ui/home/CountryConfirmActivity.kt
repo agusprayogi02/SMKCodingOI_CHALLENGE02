@@ -1,8 +1,11 @@
 package id.agusprayogi02.pabarcovid19.ui.home
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import id.agusprayogi02.pabarcovid19.R
 import id.agusprayogi02.pabarcovid19.adapter.CountryConfirmAdapter
 import id.agusprayogi02.pabarcovid19.data.AppConstants
@@ -31,12 +34,13 @@ class CountryConfirmActivity : AppCompatActivity() {
     private fun apigetData() {
         showLoading(this, swipe_country)
         val httpClient = httpClient()
-        val apiRequest = apiRequest<CovidService>(httpClient,AppConstants.COVIDAPI_URL)
+        val apiRequest = apiRequest<CovidService>(httpClient, AppConstants.COVIDAPI_URL)
 
         val data = CountryData["country"]
         val call = apiRequest.getCountryConfirm(data!!)
         call.enqueue(object : Callback<List<CovidCountryConfirmedItem>> {
             override fun onFailure(call: Call<List<CovidCountryConfirmedItem>>, t: Throwable) {
+                tampilToast(this@CountryConfirmActivity, "Gagal " + t.message)
                 dismissLoading(swipe_country)
             }
 
@@ -51,6 +55,7 @@ class CountryConfirmActivity : AppCompatActivity() {
                         when {
                             response.body()?.size != 0 -> {
                                 tampilApiData(response.body()!!)
+                                initImage()
                             }
                             else -> {
                                 tampilToast(this@CountryConfirmActivity, "Berhasil")
@@ -66,11 +71,21 @@ class CountryConfirmActivity : AppCompatActivity() {
         })
     }
 
+
     private fun tampilApiData(list: List<CovidCountryConfirmedItem>) {
         list_country_clicked.layoutManager = LinearLayoutManager(this)
         list_country_clicked.adapter = CountryConfirmAdapter(this, list) {
             tampilToast(this, it.countryRegion)
         }
+    }
+
+    private fun initImage() {
+        val width = DisplayMetrics().widthPixels
+        val h = (width / 1.9).toInt()
+        Glide.with(this)
+            .load(AppConstants.COVIDAPI_URL + "api/countries/${CountryData["country"]}/og")
+            .apply(RequestOptions().override(width, h))
+            .into(image_country_covid)
     }
 
     override fun onDestroy() {

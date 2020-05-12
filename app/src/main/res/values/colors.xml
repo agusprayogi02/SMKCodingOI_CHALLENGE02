@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <color name="colorPrimary">#039BE5</color>-->
-<!--    <color name="colorPrimaryDark">#3700B3</color>-->
-<!--    <color name="colorAccent">#03DAC5</color>-->
+    <color name="colorPrimary">#039BE5</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
 
-    <color name="colorPrimary">#171B1E</color>
-    <color name="colorPrimaryDark">#171B1E</color>
-    <color name="colorAccent">#535AF6</color>
+<!--    <color name="colorPrimary">#171B1E</color>-->
+<!--    <color name="colorPrimaryDark">#171B1E</color>-->
+<!--    <color name="colorAccent">#535AF6</color>-->
 
     <color name="davy_grey">#C8CBCF</color>
     <color name="cool_grey">#90949c</color>
@@ -24,4 +24,22 @@
     <color name="color_active">#F2B900</color>
     <color name="color_confirmed">#F2B900</color>
     <color name="background">#fafafa</color>
+
+    <color name="transparent_orange">#90FB8C00</color>
+    <color name="transparent_white">#1FFFFFFF</color>
+    <color name="transparent_dark">#80000000</color>
+
+    <!--grey-->
+    <color name="md_grey_50">#FAFAFA</color>
+    <color name="md_grey_100">#F5F5F5</color>
+    <color name="md_grey_200">#EEEEEE</color>
+    <color name="md_grey_300">#E0E0E0</color>
+    <color name="md_grey_400">#BDBDBD</color>
+    <color name="md_grey_500">#9E9E9E</color>
+    <color name="md_grey_600">#757575</color>
+    <color name="md_grey_700">#616161</color>
+    <color name="md_grey_800">#424242</color>
+    <color name="md_grey_900">#212121</color>
+    <color name="md_black_1000">#000000</color>
+    <color name="md_white_1000">#ffffff</color>
 </resources>

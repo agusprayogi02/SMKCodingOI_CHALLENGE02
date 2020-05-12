@@ -1,5 +1,6 @@
 package id.agusprayogi02.pabarcovid19.ui.news
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import id.agusprayogi02.pabarcovid19.adapter.NewsAdapter
 import id.agusprayogi02.pabarcovid19.data.*
 import id.agusprayogi02.pabarcovid19.item.Article
 import id.agusprayogi02.pabarcovid19.item.NewsHealth
+import id.agusprayogi02.pabarcovid19.session.CountryData
 import id.agusprayogi02.pabarcovid19.util.dismissLoading
 import id.agusprayogi02.pabarcovid19.util.showLoading
 import id.agusprayogi02.pabarcovid19.util.tampilToast
@@ -75,7 +77,10 @@ class NewsFragment : Fragment() {
     private fun tampilData(list: List<Article>) {
         list_news.layoutManager = LinearLayoutManager(context)
         list_news.adapter = NewsAdapter(context!!,list){
-            tampilToast(context!!,it.url)
+            CountryData.Session(context)
+            CountryData["urlNews"] = it.url
+            val i = Intent(context,WebView::class.java)
+            startActivity(i)
         }
     }
 

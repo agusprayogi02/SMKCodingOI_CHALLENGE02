@@ -63,6 +63,7 @@ class HomeFragment : Fragment() {
         val call = apiRequest.getConfirmed()
         call.enqueue(object : Callback<List<CovidConfirmedItem>> {
             override fun onFailure(call: Call<List<CovidConfirmedItem>>, t: Throwable) {
+                tampilToast(context!!,"Gagal "+t.message)
                 dismissLoading(swipe_refresh)
             }
 

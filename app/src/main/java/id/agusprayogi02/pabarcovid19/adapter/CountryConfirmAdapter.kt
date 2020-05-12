@@ -44,7 +44,7 @@ class CountryConfirmAdapter(
         ) {
             var ket = ""
             ket = if ((item.provinceState as CharSequence?).isNullOrEmpty()) {
-                "Seluruh Wilayah ${item.countryRegion}"
+                item.countryRegion
             } else {
                 "Kota ${item.provinceState}"
             }
@@ -78,8 +78,8 @@ class CountryConfirmAdapter(
                 isDrawHoleEnabled = false
                 description.isEnabled = false
                 setEntryLabelColor(R.color.onyx)
+                setEntryLabelTextSize(8F)
                 animateY(1400, Easing.EaseInOutQuad)
-                description.isEnabled = false
                 setDrawEntryLabels(false)
             }
             negara_c.setOnClickListener {

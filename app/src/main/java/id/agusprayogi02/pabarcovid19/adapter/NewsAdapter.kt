@@ -1,6 +1,7 @@
 package id.agusprayogi02.pabarcovid19.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import id.agusprayogi02.pabarcovid19.R
 import id.agusprayogi02.pabarcovid19.item.Article
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.news_item.*
+import java.util.*
 
 class NewsAdapter(
     private val context: Context,
@@ -35,6 +37,17 @@ class NewsAdapter(
             news_title.text = item.title
             news_isi.text = item.description
             news_date.text = item.publishedAt
+            news_dari.text = item.source.name
+            share_url.setOnClickListener {
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, item.url)
+                    type = "text/*"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, "Bagikan Berita ini")
+                it.context.startActivity(shareIntent)
+            }
             news_click.setOnClickListener {
                 listener(item)
             }
