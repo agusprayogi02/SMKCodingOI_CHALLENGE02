@@ -18,6 +18,7 @@ import id.agusprayogi02.pabarcovid19.data.apiRequest
 import id.agusprayogi02.pabarcovid19.data.httpClient
 import id.agusprayogi02.pabarcovid19.item.CovidConfirmedItem
 import id.agusprayogi02.pabarcovid19.session.CountryData
+import id.agusprayogi02.pabarcovid19.util.CustomProgressBar
 import id.agusprayogi02.pabarcovid19.util.dismissLoading
 import id.agusprayogi02.pabarcovid19.util.showLoading
 import id.agusprayogi02.pabarcovid19.util.tampilToast
@@ -28,6 +29,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeFragment : Fragment() {
+
+    private val progressBar = CustomProgressBar()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +59,7 @@ class HomeFragment : Fragment() {
 
     private fun callApiGetCovidConfirm() {
         showLoading(context!!, swipe_refresh)
+        progressBar.show(context!!, "Memuat..")
 
         val httpClient = httpClient()
         val apiRequest = apiRequest<CovidService>(httpClient, AppConstants.COVIDAPI_URL)
@@ -63,8 +67,9 @@ class HomeFragment : Fragment() {
         val call = apiRequest.getConfirmed()
         call.enqueue(object : Callback<List<CovidConfirmedItem>> {
             override fun onFailure(call: Call<List<CovidConfirmedItem>>, t: Throwable) {
-                tampilToast(context!!,"Gagal "+t.message)
+                tampilToast(context!!, "Gagal " + t.message)
                 dismissLoading(swipe_refresh)
+                progressBar.dialog!!.dismiss()
             }
 
             override fun onResponse(
@@ -72,6 +77,7 @@ class HomeFragment : Fragment() {
                 response: Response<List<CovidConfirmedItem>>
             ) {
                 dismissLoading(swipe_refresh)
+                progressBar.dialog!!.dismiss()
 
                 when {
                     response.isSuccessful -> {

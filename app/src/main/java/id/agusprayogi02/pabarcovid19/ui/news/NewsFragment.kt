@@ -9,10 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.agusprayogi02.pabarcovid19.R
 import id.agusprayogi02.pabarcovid19.adapter.NewsAdapter
-import id.agusprayogi02.pabarcovid19.data.*
+import id.agusprayogi02.pabarcovid19.data.AppConstants
+import id.agusprayogi02.pabarcovid19.data.CovidService
+import id.agusprayogi02.pabarcovid19.data.apiRequest
+import id.agusprayogi02.pabarcovid19.data.httpClient
 import id.agusprayogi02.pabarcovid19.item.Article
 import id.agusprayogi02.pabarcovid19.item.NewsHealth
 import id.agusprayogi02.pabarcovid19.session.CountryData
+import id.agusprayogi02.pabarcovid19.util.CustomProgressBar
 import id.agusprayogi02.pabarcovid19.util.dismissLoading
 import id.agusprayogi02.pabarcovid19.util.showLoading
 import id.agusprayogi02.pabarcovid19.util.tampilToast
@@ -23,6 +27,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class NewsFragment : Fragment() {
+
+    private val progressBar = CustomProgressBar()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,17 +48,19 @@ class NewsFragment : Fragment() {
     }
 
     private fun callApinews() {
-        showLoading(context!!,swipe_news)
+        showLoading(context!!, swipe_news)
+        progressBar.show(context!!, "Memuat...")
 
         val httpClient = httpClient()
-        val apiNewsrequest = apiRequest<CovidService>(httpClient,AppConstants.NEWSAPI_URL)
+        val apiNewsrequest = apiRequest<CovidService>(httpClient, AppConstants.NEWSAPI_URL)
 
-        val call = apiNewsrequest.getNews("id","health",AppConstants.NEWSAPI_TOKEN)
-        call.enqueue(object :Callback<NewsHealth>{
+        val call = apiNewsrequest.getNews("id", "health", AppConstants.NEWSAPI_TOKEN)
+        call.enqueue(object : Callback<NewsHealth> {
 
             override fun onFailure(call: Call<NewsHealth>, t: Throwable) {
-                tampilToast(context!!,"Gagal "+t.message)
+                tampilToast(context!!, "Gagal " + t.message)
                 dismissLoading(swipe_news)
+                progressBar.dialog!!.dismiss()
             }
 
             override fun onResponse(
@@ -60,13 +68,14 @@ class NewsFragment : Fragment() {
                 response: Response<NewsHealth>
             ) {
                 dismissLoading(swipe_news)
+                progressBar.dialog!!.dismiss()
 
                 when {
                     response.isSuccessful -> {
-                            tampilData(response.body()!!.articles)
+                        tampilData(response.body()!!.articles)
                     }
-                    else->{
-                        tampilToast(context!!,"Gagal")
+                    else -> {
+                        tampilToast(context!!, "Gagal")
                     }
                 }
             }
@@ -76,10 +85,10 @@ class NewsFragment : Fragment() {
 
     private fun tampilData(list: List<Article>) {
         list_news.layoutManager = LinearLayoutManager(context)
-        list_news.adapter = NewsAdapter(context!!,list){
+        list_news.adapter = NewsAdapter(context!!, list) {
             CountryData.Session(context)
             CountryData["urlNews"] = it.url
-            val i = Intent(context,WebView::class.java)
+            val i = Intent(context, WebView::class.java)
             startActivity(i)
         }
     }

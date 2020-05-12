@@ -14,6 +14,7 @@ import id.agusprayogi02.pabarcovid19.data.apiRequest
 import id.agusprayogi02.pabarcovid19.data.httpClient
 import id.agusprayogi02.pabarcovid19.item.CovidCountryConfirmedItem
 import id.agusprayogi02.pabarcovid19.session.CountryData
+import id.agusprayogi02.pabarcovid19.util.CustomProgressBar
 import id.agusprayogi02.pabarcovid19.util.dismissLoading
 import id.agusprayogi02.pabarcovid19.util.showLoading
 import id.agusprayogi02.pabarcovid19.util.tampilToast
@@ -25,6 +26,8 @@ import retrofit2.Response
 
 class CountryConfirmActivity : AppCompatActivity() {
 
+    private val progressBar = CustomProgressBar()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_country_confirm)
@@ -33,6 +36,8 @@ class CountryConfirmActivity : AppCompatActivity() {
 
     private fun apigetData() {
         showLoading(this, swipe_country)
+        progressBar.show(this, "Memuat...")
+
         val httpClient = httpClient()
         val apiRequest = apiRequest<CovidService>(httpClient, AppConstants.COVIDAPI_URL)
 
@@ -42,6 +47,7 @@ class CountryConfirmActivity : AppCompatActivity() {
             override fun onFailure(call: Call<List<CovidCountryConfirmedItem>>, t: Throwable) {
                 tampilToast(this@CountryConfirmActivity, "Gagal " + t.message)
                 dismissLoading(swipe_country)
+                progressBar.dialog!!.dismiss()
             }
 
             override fun onResponse(
@@ -49,6 +55,7 @@ class CountryConfirmActivity : AppCompatActivity() {
                 response: Response<List<CovidCountryConfirmedItem>>
             ) {
                 dismissLoading(swipe_country)
+                progressBar.dialog!!.dismiss()
 
                 when {
                     response.isSuccessful -> {

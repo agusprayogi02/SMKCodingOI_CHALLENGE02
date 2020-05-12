@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "783076227419",
+    "firebase_url": "https://pabar-covid-19.firebaseio.com",
+    "project_id": "pabar-covid-19",
+    "storage_bucket": "pabar-covid-19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783076227419:android:55bf45c0ab042f64fa027e",
+        "android_client_info": {
+          "package_name": "id.agusprayogi02.pabarcovid19"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "783076227419-t6mcsvor5jfssgneqsicrbc1d2oan85s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.agusprayogi02.pabarcovid19",
+            "certificate_hash": "8f09c657ea897d262465f46f149083bac591cf72"
+          }
+        },
+        {
+          "client_id": "783076227419-son2loatgtuglo4qrp02jomjh8pbfv5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk9E5k9WnKXlQLdH08pTuevmJmOafRx_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "783076227419-son2loatgtuglo4qrp02jomjh8pbfv5s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
