@@ -40,6 +40,7 @@ class WebView : AppCompatActivity() {
             ): Boolean {
                 return true
             }
+
             override fun onReceivedError(
                 view: WebView?,
                 request: WebResourceRequest?,

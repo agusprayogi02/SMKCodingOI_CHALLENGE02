@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.check.CheckUpFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <WebView
+        android:id="@+id/check_up_web"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
 </FrameLayout>
