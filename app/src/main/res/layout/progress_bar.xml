@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:gravity="center_vertical"
-        android:background="@color/transparent_orange">
+        android:background="@color/transparent_blue">
 
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/progress_bar"
@@ -26,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:textStyle="bold"
             android:text="Tunggu Sebentar..."
             android:textColor="@color/white"
             android:layout_centerHorizontal="true" />

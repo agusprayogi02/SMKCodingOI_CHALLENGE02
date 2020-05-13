@@ -59,10 +59,7 @@ class WebView : AppCompatActivity() {
                 if(progressBar.dialog!!.isShowing){
                     progressBar.dialog!!.dismiss()
                 }
-                tampilToast(this@WebView, "Error")
-                Intent(Intent.ACTION_VIEW, Uri.parse(URL)).apply {
-                    startActivity(this)
-                }
+                tampilToast(this@WebView, "Error: Waktu Reload Habis")
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {

@@ -49,7 +49,7 @@ class NewsFragment : Fragment() {
 
     private fun callApinews() {
         showLoading(context!!, swipe_news)
-        progressBar.show(context!!, "Memuat...")
+//        progressBar.show(context!!, "Memuat...")
 
         val httpClient = httpClient()
         val apiNewsrequest = apiRequest<CovidService>(httpClient, AppConstants.NEWSAPI_URL)
@@ -60,7 +60,7 @@ class NewsFragment : Fragment() {
             override fun onFailure(call: Call<NewsHealth>, t: Throwable) {
                 tampilToast(context!!, "Gagal " + t.message)
                 dismissLoading(swipe_news)
-                progressBar.dialog!!.dismiss()
+//                progressBar.dialog!!.dismiss()
             }
 
             override fun onResponse(
@@ -68,7 +68,7 @@ class NewsFragment : Fragment() {
                 response: Response<NewsHealth>
             ) {
                 dismissLoading(swipe_news)
-                progressBar.dialog!!.dismiss()
+//                progressBar.dialog!!.dismiss()
 
                 when {
                     response.isSuccessful -> {

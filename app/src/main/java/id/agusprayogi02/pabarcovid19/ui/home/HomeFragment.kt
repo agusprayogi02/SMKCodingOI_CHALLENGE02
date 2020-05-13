@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
 
     private fun callApiGetCovidConfirm() {
         showLoading(context!!, swipe_refresh)
-        progressBar.show(context!!, "Memuat..")
+//        progressBar.show(context!!, "Memuat..")
 
         val httpClient = httpClient()
         val apiRequest = apiRequest<CovidService>(httpClient, AppConstants.COVIDAPI_URL)
@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
             override fun onFailure(call: Call<List<CovidConfirmedItem>>, t: Throwable) {
                 tampilToast(context!!, "Gagal " + t.message)
                 dismissLoading(swipe_refresh)
-                progressBar.dialog!!.dismiss()
+//                progressBar.dialog!!.dismiss()
             }
 
             override fun onResponse(
@@ -77,7 +77,7 @@ class HomeFragment : Fragment() {
                 response: Response<List<CovidConfirmedItem>>
             ) {
                 dismissLoading(swipe_refresh)
-                progressBar.dialog!!.dismiss()
+//                progressBar.dialog!!.dismiss()
 
                 when {
                     response.isSuccessful -> {

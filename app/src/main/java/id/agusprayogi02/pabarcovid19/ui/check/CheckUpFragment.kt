@@ -1,6 +1,5 @@
 package id.agusprayogi02.pabarcovid19.ui.check
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -55,14 +54,6 @@ class CheckUpFragment : Fragment() {
                 return true
             }
 
-            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                progressBar.show(context!!, "Memuat...")
-            }
-
-            override fun onPageFinished(view: WebView?, url: String?) {
-                    progressBar.dialog!!.dismiss()
-            }
-
             override fun onReceivedError(
                 view: WebView?,
                 request: WebResourceRequest?,
@@ -75,7 +66,6 @@ class CheckUpFragment : Fragment() {
                 tampilToast(context!!, "Error: Something went wrong")
             }
         }
-        WebView.setWebContentsDebuggingEnabled(false)
     }
 
 }
