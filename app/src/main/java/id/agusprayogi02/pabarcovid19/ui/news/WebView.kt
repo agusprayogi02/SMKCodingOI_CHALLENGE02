@@ -1,7 +1,9 @@
 package id.agusprayogi02.pabarcovid19.ui.news
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebResourceError
@@ -17,27 +19,27 @@ import kotlinx.android.synthetic.main.activity_web_view.*
 
 class WebView : AppCompatActivity() {
     private val progressBar: CustomProgressBar = CustomProgressBar()
+    private var URL:String = ""
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
 
-        val url = CountryData["urlNews"]
-        url_web_view.text = url
+        URL = CountryData["urlNews"]!!
+        url_web_view.text = URL
         btn_arrow_back.setOnClickListener {
             finish()
         }
         val webView = webview
         webView.settings.loadWithOverviewMode = true
         webView.settings.javaScriptEnabled = true
+        webView.settings.defaultFontSize = 13
         webView.isVerticalScrollBarEnabled = true
-        var failedLoading = false
+        tampilToast(this,URL)
+        progressBar.show(this,"Memuat...")
         webView.webViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(
-                view: WebView?,
-                request: WebResourceRequest?
-            ): Boolean {
+            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 return true
             }
 
@@ -46,33 +48,19 @@ class WebView : AppCompatActivity() {
                 request: WebResourceRequest?,
                 error: WebResourceError?
             ) {
-                failedLoading = true
                 if(progressBar.dialog!!.isShowing){
                     progressBar.dialog!!.dismiss()
                 }
-                tampilToast(this@WebView,"Error: Something went wrong")
-            }
-
-            override fun onPageFinished(view: WebView?, url: String?) {
-                if (!failedLoading) {
-                    progressBar.dialog!!.dismiss()
-                    val alertDialog: AlertDialog = AlertDialog.Builder(this@WebView).create()
-                    alertDialog.setTitle(url)
-                    alertDialog.setMessage("Error: Something went wrong")
-                    alertDialog.setButton(
-                        AlertDialog.BUTTON_NEUTRAL, "OK"
-                    ) { dialog, _ -> dialog.dismiss() }
-                    alertDialog.show()
-                    finish()
-                }else{
-                    progressBar.dialog!!.dismiss()
+                Intent(Intent.ACTION_VIEW, Uri.parse(URL)).apply {
+                    startActivity(this)
                 }
             }
 
-            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                progressBar.show(this@WebView,"Memuat...")
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                progressBar.dialog!!.dismiss()
             }
         }
-        webView.loadUrl(url)
+        webView.loadUrl(URL)
     }
 }
