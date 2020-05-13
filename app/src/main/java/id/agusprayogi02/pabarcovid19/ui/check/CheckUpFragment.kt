@@ -34,48 +34,48 @@ class CheckUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        getWebView()
+        getWebView()
     }
 
-//    private fun getWebView() {
-//        val webView = check_up_web
-//        webView.apply {
-//            settings.loadWithOverviewMode = true
-//            settings.javaScriptEnabled = true
-//            isVerticalScrollBarEnabled = true
-//            loadUrl(URL)
-//        }
-//
-//        var failedLoading = false
-//        webView.webViewClient = object : WebViewClient() {
-//            override fun shouldOverrideUrlLoading(
-//                view: WebView?,
-//                request: WebResourceRequest?
-//            ): Boolean {
-//                return true
-//            }
-//
-//            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-//                progressBar.show(context!!, "Memuat...")
-//            }
-//
-//            override fun onPageFinished(view: WebView?, url: String?) {
-//                    progressBar.dialog!!.dismiss()
-//            }
-//
-//            override fun onReceivedError(
-//                view: WebView?,
-//                request: WebResourceRequest?,
-//                error: WebResourceError?
-//            ) {
-//                failedLoading = true
-//                if (progressBar.dialog!!.isShowing) {
-//                    progressBar.dialog!!.dismiss()
-//                }
-//                tampilToast(context!!, "Error: Something went wrong")
-//            }
-//        }
-//        WebView.setWebContentsDebuggingEnabled(false)
-//    }
+    private fun getWebView() {
+        val webView = check_up_web
+        webView.apply {
+            settings.loadWithOverviewMode = true
+            settings.javaScriptEnabled = true
+            isVerticalScrollBarEnabled = true
+            loadUrl(URL)
+        }
+
+        var failedLoading = false
+        webView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): Boolean {
+                return true
+            }
+
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                progressBar.show(context!!, "Memuat...")
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                    progressBar.dialog!!.dismiss()
+            }
+
+            override fun onReceivedError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                error: WebResourceError?
+            ) {
+                failedLoading = true
+                if (progressBar.dialog!!.isShowing) {
+                    progressBar.dialog!!.dismiss()
+                }
+                tampilToast(context!!, "Error: Something went wrong")
+            }
+        }
+        WebView.setWebContentsDebuggingEnabled(false)
+    }
 
 }

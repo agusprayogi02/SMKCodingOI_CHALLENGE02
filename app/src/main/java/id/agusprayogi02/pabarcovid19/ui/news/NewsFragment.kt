@@ -88,6 +88,7 @@ class NewsFragment : Fragment() {
         list_news.adapter = NewsAdapter(context!!, list) {
             CountryData.Session(context)
             CountryData["urlNews"] = it.url
+            CountryData["source"] = it.source.name
             val i = Intent(context, WebView::class.java)
             startActivity(i)
         }
