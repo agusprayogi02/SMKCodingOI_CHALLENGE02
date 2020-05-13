@@ -14,8 +14,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/md_grey_600" />
+        android:layout_height="1dp"
+        android:background="@color/md_grey_300" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/TabLayout"
