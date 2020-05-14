@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import id.agusprayogi02.pabarcovid19.R
 import id.agusprayogi02.pabarcovid19.ui.auth.LoginActivity
@@ -28,8 +29,16 @@ class ProfilFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val auth = FirebaseAuth.getInstance()
+        if (auth.currentUser!!.uid.isNotEmpty()) {
+            name_profil.text = auth.currentUser!!.displayName
+            email_profile.text = auth.currentUser!!.email
+            no_phone.text = auth.currentUser!!.phoneNumber
+            user_id.text = auth.currentUser!!.uid
+            Glide.with(context!!).load(auth.currentUser!!.photoUrl).into(img_profil)
+        }
+
         sign_out.setOnClickListener {
-            val auth = FirebaseAuth.getInstance()
             auth.signOut()
             if (auth.currentUser == null) {
                 val i = Intent(context, LoginActivity::class.java)

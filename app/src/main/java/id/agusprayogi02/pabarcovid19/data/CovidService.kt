@@ -21,6 +21,7 @@ interface CovidService {
     @GET("api/countries/{country}/confirmed")
     fun getCountryConfirm(@Path("country") country: String): Call<List<CovidCountryConfirmedItem>>
 
+
     @GET("v2/top-headlines")
     fun getNews(
         @Query("country") country: String,

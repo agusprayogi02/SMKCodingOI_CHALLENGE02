@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + account.id!!)
 
-        progressBar.show(this,"Tunggu Sebentar...")
+        progressBar.show(this, "Tunggu Sebentar...")
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
