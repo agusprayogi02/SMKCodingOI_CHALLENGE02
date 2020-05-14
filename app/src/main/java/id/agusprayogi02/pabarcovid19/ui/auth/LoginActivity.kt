@@ -74,7 +74,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun updateUI(user: FirebaseUser?) {
-        progressBar.dialog!!.dismiss()
         val i = Intent(this, MainActivity::class.java)
         startActivity(i)
         finish()

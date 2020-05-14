@@ -6,6 +6,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -47,6 +48,17 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         callApiGetCovidConfirm()
+        setSpinner()
+    }
+
+    private fun setSpinner() {
+        val adapter = ArrayAdapter.createFromResource(
+            context!!,
+            R.array.spinner_string,
+            android.R.layout.simple_spinner_item
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spin_sort.adapter = adapter
     }
 
     private fun initImage() {
