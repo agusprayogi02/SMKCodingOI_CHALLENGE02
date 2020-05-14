@@ -12,6 +12,12 @@ interface CovidService {
     @GET("api/confirmed")
     fun getConfirmed(): Call<List<CovidConfirmedItem>>
 
+    @GET("api/deaths")
+    fun getDeaths(): Call<List<CovidConfirmedItem>>
+
+    @GET("api/recovered")
+    fun getRecovered(): Call<List<CovidConfirmedItem>>
+
     @GET("api/countries/{country}/confirmed")
     fun getCountryConfirm(@Path("country") country: String): Call<List<CovidCountryConfirmedItem>>
 

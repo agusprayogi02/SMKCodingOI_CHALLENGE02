@@ -42,15 +42,17 @@
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="5dp"
                     android:layout_weight="1"/>
+
                 <Button
-                    android:layout_width="70dp"
+                    android:id="@+id/btn_set"
+                    android:layout_width="85dp"
                     android:layout_height="30dp"
                     android:background="@drawable/btn_default_selector"
-                    android:textAllCaps="false"
                     android:fontFamily="@font/sf_bold"
-                    android:textColor="@color/white"
                     android:gravity="center"
-                    android:text="Apply"/>
+                    android:text="Terapkan"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <ImageView

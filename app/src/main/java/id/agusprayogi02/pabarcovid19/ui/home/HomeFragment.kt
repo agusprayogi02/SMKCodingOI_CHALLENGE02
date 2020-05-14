@@ -31,7 +31,7 @@ import retrofit2.Response
 
 class HomeFragment : Fragment() {
 
-    private val progressBar = CustomProgressBar()
+    private var dataSort = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +47,20 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        CountryData.Session(context)
+        CountryData["Sorted"] = "Terkonfirmasi"
         callApiGetCovidConfirm()
         setSpinner()
+        setSorted()
+    }
+
+    private fun setSorted() {
+        btn_set.setOnClickListener {
+            val isi = spin_sort.selectedItem.toString()
+            CountryData["Sorted"] = isi
+            dataSort = isi
+            callApiGetCovidConfirm()
+        }
     }
 
     private fun setSpinner() {
@@ -75,8 +87,18 @@ class HomeFragment : Fragment() {
 
         val httpClient = httpClient()
         val apiRequest = apiRequest<CovidService>(httpClient, AppConstants.COVIDAPI_URL)
+        val call = when {
+            dataSort.equals("Sembuh",true) -> {
+                apiRequest.getRecovered()
+            }
+            dataSort.equals("Meninggal",true) -> {
+                apiRequest.getDeaths()
+            }
+            else -> {
+                apiRequest.getConfirmed()
+            }
+        }
 
-        val call = apiRequest.getConfirmed()
         call.enqueue(object : Callback<List<CovidConfirmedItem>> {
             override fun onFailure(call: Call<List<CovidConfirmedItem>>, t: Throwable) {
                 tampilToast(context!!, "Gagal " + t.message)

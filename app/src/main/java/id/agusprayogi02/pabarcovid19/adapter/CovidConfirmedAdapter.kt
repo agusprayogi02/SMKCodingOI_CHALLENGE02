@@ -1,14 +1,17 @@
 package id.agusprayogi02.pabarcovid19.adapter
 
 import android.content.Context
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import id.agusprayogi02.pabarcovid19.R
 import id.agusprayogi02.pabarcovid19.item.CovidConfirmedItem
+import id.agusprayogi02.pabarcovid19.session.CountryData
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.country_item.*
 import java.util.*
@@ -39,14 +42,29 @@ class CovidConfirmedAdapter(
                 .load("https://www.countryflags.io/" + item.iso2 + "/shiny/64.png")
                 .apply { RequestOptions().override(64) }
                 .into(flag_country)
-            var ket = ""
-            if (item.provinceState.isNullOrEmpty()) {
-                ket = ""
+            val ket = if (item.provinceState.isNullOrEmpty()) {
+                ""
             } else {
-                ket = " (${item.provinceState})"
+                " (${item.provinceState})"
             }
             negara.text = item.countryRegion + ket
-            positif.text = "${item.confirmed} Orang"
+
+            val dataSort =  CountryData["Sorted"]
+            when {
+                dataSort.equals("Sembuh",true) -> {
+                    positif.text = "$dataSort  :  ${item.recovered} Orang"
+                    positif.setTextColor(ContextCompat.getColor(context,R.color.color_recovered))
+                }
+                dataSort.equals("Meninggal",true) -> {
+                    positif.text = "$dataSort  :  ${item.deaths} Orang"
+                    positif.setTextColor(ContextCompat.getColor(context,R.color.color_death))
+                }
+                else -> {
+                    positif.text = "$dataSort  :  ${item.confirmed} Orang"
+                    positif.setTextColor(ContextCompat.getColor(context,R.color.color_confirmed))
+                }
+            }
+
             val date = Date(item.lastUpdate)
             last_update.text =
                 "Update : " + java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
