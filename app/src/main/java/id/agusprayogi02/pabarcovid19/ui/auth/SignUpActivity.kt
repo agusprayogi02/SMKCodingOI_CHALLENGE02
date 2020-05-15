@@ -1,12 +1,11 @@
 package id.agusprayogi02.pabarcovid19.ui.auth
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.FirebaseDatabase
 import com.thecode.aestheticdialogs.AestheticDialog
 import id.agusprayogi02.pabarcovid19.R
@@ -20,6 +19,8 @@ class SignUpActivity : AppCompatActivity() {
     private val mRef = FirebaseDatabase.getInstance()
     private val mAuth = FirebaseAuth.getInstance()
     private val progressBar = CustomProgressBar()
+    private var email = ""
+    private var pass = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +37,8 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun signUp() {
         val error = "Harus di Isi !!"
-        val email = email_signUP.text!!.toString()
-        val pass = pass_signUP.text!!.toString()
+        email = email_signUP.text!!.toString().trim()
+        pass = pass_signUP.text!!.toString().trim()
 
         when {
             full_name_signUP.text!!.isEmpty() -> {
@@ -46,7 +47,7 @@ class SignUpActivity : AppCompatActivity() {
             email_signUP.text!!.isEmpty() -> {
                 email_signUP.error = error
             }
-            pass_signUP.length() < 6-> {
+            pass_signUP.length() < 6 -> {
                 pass_signUP.error = "Password miniman 6 Karakter"
             }
             phone_signUP.text!!.isEmpty() -> {
@@ -67,15 +68,31 @@ class SignUpActivity : AppCompatActivity() {
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
                             val uid = mAuth.currentUser!!.uid
-                            tampilToast(this, "Berhasil Membuat Akun")
+                            AestheticDialog.showToaster(
+                                this,
+                                "Success Mendaftar",
+                                "Berhasil Membuat Akun",
+                                AestheticDialog.SUCCESS
+                            )
                             saveData(uid)
-                        } else tampilToast(this, "error: " + it.result.toString())
+                        } else {
+                            Log.w(LoginActivity.TAG, "signInWithCredential:failure", it.exception)
+                            AestheticDialog.showToaster(
+                                this,
+                                "Gagal Mendaftar",
+                                "Email Sudah Terdaftar",
+                                AestheticDialog.ERROR
+                            )
+                        }
+                        progressBar.dialog!!.dismiss()
                     }
                     .addOnFailureListener {
+                        progressBar.dialog!!.dismiss()
+                        Log.d("Main", "signInWithCredential:failure")
                         AestheticDialog.showToaster(
                             this,
-                            "Error Make User",
-                            it.message,
+                            "Gagal Mendaftar",
+                            "Email Tidak falid",
                             AestheticDialog.ERROR
                         )
                     }
@@ -90,8 +107,8 @@ class SignUpActivity : AppCompatActivity() {
         val user = Users(
             uid,
             name,
-            email_signUP.text.toString(),
-            pass_signUP.text.toString(),
+            email,
+            pass,
             phone,
             umur_signUP.text.toString(),
             jk_signUp.selectedItem.toString(),
@@ -102,12 +119,28 @@ class SignUpActivity : AppCompatActivity() {
             if (it.isSuccessful) {
                 val i = Intent(this, LoginActivity::class.java)
                 progressBar.dialog!!.dismiss()
-                startActivity(i)
                 finish()
-            } else tampilToast(this, it.result.toString())
+                startActivity(i)
+            } else {
+                progressBar.dialog!!.dismiss()
+                Log.w(LoginActivity.TAG, "signInWithCredential:failure", it.exception)
+                AestheticDialog.showToaster(
+                    this,
+                    "Error Upload Data",
+                    "Data yang dimasukkan Bermasalah",
+                    AestheticDialog.ERROR
+                )
+            }
         }
             .addOnFailureListener {
-                AestheticDialog.showToaster(this, "Error Upload Data", it.message, AestheticDialog.ERROR)
+                Log.d("Main", "signInWithCredential:failure")
+                progressBar.dialog!!.dismiss()
+                AestheticDialog.showToaster(
+                    this,
+                    "Error Upload Data",
+                    "Data yang dimasukkan Bermasalah",
+                    AestheticDialog.ERROR
+                )
             }
     }
 

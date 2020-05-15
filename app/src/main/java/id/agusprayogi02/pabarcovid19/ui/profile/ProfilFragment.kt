@@ -14,8 +14,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import id.agusprayogi02.pabarcovid19.R
 import id.agusprayogi02.pabarcovid19.item.Users
-import id.agusprayogi02.pabarcovid19.session.SessionData
 import id.agusprayogi02.pabarcovid19.ui.auth.LoginActivity
+import id.agusprayogi02.pabarcovid19.util.dismissLoading
+import id.agusprayogi02.pabarcovid19.util.showLoading
 import kotlinx.android.synthetic.main.fragment_profil.*
 
 class ProfilFragment : Fragment() {
@@ -39,15 +40,17 @@ class ProfilFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val auth = FirebaseAuth.getInstance()
         if (auth.currentUser!!.uid.isNotEmpty()) {
+            showLoading(context!!, swipe_profil)
             val user = auth.currentUser
-            val uid = SessionData["UserData"]
+            val uid = user!!.uid
 
-            if (user!!.displayName!!.isNotEmpty()) {
+            if (user.displayName!!.isNotEmpty()) {
                 name_profil.text = user.displayName
                 Glide.with(context!!).load(user.photoUrl).into(img_profil)
                 user_id.text = user.uid
                 email_profile.text = user.email
                 no_phone.text = user.phoneNumber
+                dismissLoading(swipe_profil)
             } else {
                 mRef.getReference("Users").addValueEventListener(object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
@@ -72,6 +75,7 @@ class ProfilFragment : Fragment() {
                                 }
                             }
                         }
+                        dismissLoading(swipe_profil)
                     }
 
                 })

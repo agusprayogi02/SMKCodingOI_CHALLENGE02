@@ -12,6 +12,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.thecode.aestheticdialogs.AestheticDialog
 import id.agusprayogi02.pabarcovid19.MainActivity
 import id.agusprayogi02.pabarcovid19.R
 import id.agusprayogi02.pabarcovid19.session.SessionData
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
+    private var auth = FirebaseAuth.getInstance()
     private lateinit var googleSignInClient: GoogleSignInClient
     private val progressBar = CustomProgressBar()
 
@@ -29,11 +30,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         sign_up.setOnClickListener {
-            startActivity(Intent(this,SignUpActivity::class.java))
+            startActivity(Intent(this, SignUpActivity::class.java))
         }
 
         daftar_sign.setOnClickListener {
-            startActivity(Intent(this,SignUpActivity::class.java))
+            startActivity(Intent(this, SignUpActivity::class.java))
         }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -42,10 +43,52 @@ class LoginActivity : AppCompatActivity() {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
-        auth = FirebaseAuth.getInstance()
+
+        btn_login.setOnClickListener {
+            EmailSignIn()
+        }
 
         google_login.setOnClickListener {
             signIn()
+        }
+    }
+
+    private fun EmailSignIn() {
+        val email = email_sign_in.text.toString().trim()
+        val pass = pass_sign_in.text.toString().trim()
+        when {
+            email.isEmpty() -> {
+                email_sign_in.error = "Tidak Boleh Kosong"
+            }
+            pass_sign_in.length() < 6 -> {
+                pass_sign_in.error = "Password Harus Lebih Dari 6 Karakter"
+            }
+            else -> {
+                progressBar.show(this, "Mencoba Masuk...")
+                auth.signInWithEmailAndPassword(email, pass)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            AestheticDialog.showToaster(
+                                this,
+                                "Success",
+                                "Berhasil Masuk",
+                                AestheticDialog.SUCCESS
+                            )
+                            updateUI(auth.currentUser)
+                        } else Log.w(TAG, "signInWithCredential:failure", it.exception)
+                        progressBar.dialog!!.dismiss()
+                    }
+                    .addOnFailureListener {
+                        Log.d("Main", "signInWithCredential:failure")
+                        progressBar.dialog!!.dismiss()
+                        AestheticDialog.showToaster(
+                            this,
+                            "Gagal Login",
+                            "Email atau Password Salah",
+                            AestheticDialog.ERROR
+                        )
+                    }
+            }
         }
     }
 
@@ -97,16 +140,14 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (auth.currentUser == null) {
-            false
-        } else {
+        if (auth.currentUser != null) {
             val currentUser = auth.currentUser
             updateUI(currentUser)
         }
     }
 
     companion object {
-        private const val TAG = "GoogleActivity"
+        const val TAG = "GoogleActivity"
         private const val RC_SIGN_IN = 9001
     }
 }
