@@ -32,6 +32,10 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this,SignUpActivity::class.java))
         }
 
+        daftar_sign.setOnClickListener {
+            startActivity(Intent(this,SignUpActivity::class.java))
+        }
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.web_client))
             .requestEmail()
