@@ -34,13 +34,14 @@ class ProfilFragment : Fragment() {
         val auth = FirebaseAuth.getInstance()
         if (auth.currentUser!!.uid.isNotEmpty()) {
             tampilToast(context!!, SessionData["UserData"]!!)
-            name_profil.text = auth.currentUser!!.displayName
-            email_profile.text = auth.currentUser!!.email
-            no_phone.text = auth.currentUser!!.phoneNumber
-            user_id.text = auth.currentUser!!.uid
-            Glide.with(context!!).load(auth.currentUser!!.photoUrl).into(img_profil)
-            auth.currentUser!!.providerData?.let {
-
+            auth.currentUser?.let {
+                for (profile in it.providerData){
+                    name_profil.text = profile.displayName
+                    Glide.with(context!!).load(profile.photoUrl).into(img_profil)
+                    email_profile.text = profile.email
+                    no_phone.text = profile.phoneNumber
+                    user_id.text = profile.uid
+                }
             }
         }
 

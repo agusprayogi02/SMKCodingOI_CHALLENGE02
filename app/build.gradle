@@ -74,6 +74,9 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 //  circleImagea
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+    //Calligraphy
+    implementation 'io.github.inflationx:calligraphy3:3.1.1'
+    implementation 'io.github.inflationx:viewpump:2.0.3'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
