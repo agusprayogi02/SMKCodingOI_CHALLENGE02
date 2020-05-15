@@ -39,7 +39,6 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/full_name_signUP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/mbProfil"
@@ -48,6 +47,7 @@
                 app:startIconDrawable="@drawable/ic_name_black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/full_name_signUP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName" />
@@ -55,7 +55,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/email_signUP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/mbProfil"
@@ -64,6 +63,7 @@
                 app:startIconDrawable="@drawable/ic_email_black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_signUP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress" />
@@ -71,7 +71,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/pass_signUP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/mbProfil"
@@ -81,6 +80,7 @@
                 app:startIconDrawable="@drawable/ic_pass_black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pass_signUP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword" />
@@ -88,7 +88,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phone_signUP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/mbProfil"
@@ -97,6 +96,7 @@
                 app:startIconDrawable="@drawable/ic_phone_black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone_signUP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone" />
@@ -104,7 +104,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/umur_signUP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/mbProfil"
@@ -113,6 +112,7 @@
                 app:startIconDrawable="@drawable/ic_umur_black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/umur_signUP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
@@ -126,7 +126,6 @@
                 android:layout_marginVertical="@dimen/mbProfil" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/alamat_signUP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/mbProfil"
@@ -135,6 +134,7 @@
                 app:startIconDrawable="@drawable/ic_address_out">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/alamat_signUP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine" />
@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/signUP"
+                    android:id="@+id/btn_signUP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_default_selector"
