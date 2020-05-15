@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/app_image_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
