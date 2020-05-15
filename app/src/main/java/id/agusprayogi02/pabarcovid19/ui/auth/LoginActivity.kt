@@ -28,6 +28,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        sign_up.setOnClickListener {
+            startActivity(Intent(this,SignUpActivity::class.java))
+        }
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.web_client))
             .requestEmail()

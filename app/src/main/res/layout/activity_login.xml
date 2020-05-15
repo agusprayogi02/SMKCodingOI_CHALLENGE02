@@ -37,24 +37,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/oleo_bold"
                 android:gravity="center"
                 android:text="@string/welcome"
                 android:textColor="@color/md_indigo_900"
                 android:textSize="20sp"
-                android:fontFamily="@font/oleo_bold"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/google_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/common_google_signin_btn_text_light"
-                android:text="Masuk Dengan Google"
-                android:textSize="16sp"
-                android:textAllCaps="false"
                 android:fontFamily="@font/sf_bold"
-                android:textColor="@color/md_light_blue_800"/>
+                android:text="Masuk Dengan Google"
+                android:textAllCaps="false"
+                android:textColor="@color/md_light_blue_800"
+                android:textSize="16sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:icon="@drawable/ic_add_user"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

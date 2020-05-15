@@ -16,6 +16,7 @@ import androidx.dynamicanimation.animation.SpringForce
 import com.google.firebase.auth.FirebaseAuth
 import id.agusprayogi02.pabarcovid19.MainActivity
 import id.agusprayogi02.pabarcovid19.R
+import id.agusprayogi02.pabarcovid19.session.SessionData
 import id.agusprayogi02.pabarcovid19.ui.auth.LoginActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -62,6 +63,8 @@ class SplashActivity : AppCompatActivity() {
                         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
                         override fun onAnimationEnd(p0: Animator?) {
                             val intent = if (auth.currentUser != null) {
+                                SessionData.session(applicationContext)
+                                SessionData["UserData"] = auth.currentUser!!.uid
                                 Intent(applicationContext, MainActivity::class.java)
                             } else {
                                 Intent(applicationContext, LoginActivity::class.java)

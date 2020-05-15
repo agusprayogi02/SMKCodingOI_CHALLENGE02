@@ -17,4 +17,11 @@
         <item>Sembuh</item>
         <item>Meninggal</item>
     </string-array>
+
+    <string-array name="jenis_kl">
+        <item>Pilih Jenis Kelamin</item>
+        <item>Laki-Laki</item>
+        <item>Perempuan</item>
+        <item>Lainnya</item>
+    </string-array>
 </resources>

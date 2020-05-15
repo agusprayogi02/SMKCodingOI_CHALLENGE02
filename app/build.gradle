@@ -4,8 +4,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 'android-R'
+    buildToolsVersion '30.0.0 rc4'
 
     defaultConfig {
         applicationId "id.agusprayogi02.pabarcovid19"
@@ -29,6 +29,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 androidExtensions {
@@ -44,7 +48,7 @@ dependencies {
 
 //    viewpager
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.android.material:material:1.2.0-alpha06'
 //    recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 //    GSON
@@ -62,6 +66,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.3.1'
     implementation 'com.google.firebase:firebase-analytics:17.4.1'
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
+    implementation 'com.google.firebase:firebase-database:19.3.0'
 
 //    cardview
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -79,7 +84,7 @@ dependencies {
     implementation 'io.github.inflationx:viewpump:2.0.3'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
