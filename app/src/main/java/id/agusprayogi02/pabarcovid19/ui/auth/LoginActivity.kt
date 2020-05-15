@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import id.agusprayogi02.pabarcovid19.MainActivity
 import id.agusprayogi02.pabarcovid19.R
+import id.agusprayogi02.pabarcovid19.session.SessionData
 import id.agusprayogi02.pabarcovid19.util.CustomProgressBar
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -74,6 +75,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun updateUI(user: FirebaseUser?) {
+        SessionData.session(this)
+        SessionData["UserData"] = user!!.uid
         val i = Intent(this, MainActivity::class.java)
         startActivity(i)
         finish()
