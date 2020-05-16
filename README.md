@@ -13,7 +13,8 @@ Buruan download aplikasinya di sini => [Apa Kabar Covid-19](https://drive.google
 ## **1. Halaman Home**
 
 
-<img src="ScreenShots/Home.png">\
+<img src="ScreenShots/Home.png">
+
 **Penjelasan :**
 1. Metode Pengurutan Kasus
 2. Kasus Covid-19 diseruruh dunia
@@ -24,7 +25,8 @@ Buruan download aplikasinya di sini => [Apa Kabar Covid-19](https://drive.google
 #
 ## **2. Halaman Periksa**
 
-<img scr="ScreenShots/Periksa.png">\
+<img scr="ScreenShots/Perikasa.png">
+
 **Penjelasan :**
 
 Digunakan untuk mengecek apakah anda terpapar virus Corona dan agar anda bisa tahu gejala awal Virus ini.\
