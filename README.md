@@ -13,7 +13,7 @@ Buruan download aplikasinya di sini => [Apa Kabar Covid-19](https://drive.google
 ## **1. Halaman Home**
 
 
-<img src="ScreenShots/Home.png">
+<img src="ScreenShots/home.png">
 
 **Penjelasan :**
 1. Metode Pengurutan Kasus
@@ -25,7 +25,8 @@ Buruan download aplikasinya di sini => [Apa Kabar Covid-19](https://drive.google
 #
 ## **2. Halaman Periksa**
 
-<img scr="ScreenShots/Perikasa.png">
+
+![alt text](https://github.com/agusprayogi02/SMKCodingOI_CHALLENGE02/blob/master/ScreenShots/Perikasa.png)
 
 **Penjelasan :**
 
