@@ -2,7 +2,7 @@
 
 ### Aplikasi Apa Kabar Covid-19
 
-Memantau Perkembagan dan Berita terbaru seputar Covid-19 sekarang bisa lewat aplikasi android lho😊.\
+Memantau Perkembangan dan Berita terbaru seputar Covid-19 sekarang bisa lewat aplikasi android lho😊.\
 Buruan download aplikasinya di sini => [Apa Kabar Covid-19](https://drive.google.com/open?id=1j6iqkCjzzmQrFazU2tNMZaz_5CXQjQJf)
 
 Sumber APi :
@@ -14,13 +14,13 @@ Sumber APi :
 
 ## **Halaman Utama**
 
-<img src="ScreenShots/Header.png">
+![alt text](ScreenShots/Header.png)
 
 #
 
 ## **1. Halaman Home**
 
-![alt text](ScreenShots/home.png)
+![alt text](ScreenShots/home.png)\
 **Penjelasan :**
 
 1. Pengurutan Kasus => dapat menggurutkan kasus berdasarkan yang telah dipilih dimenu Dropdown dan setelah diklik terapkan maka akan terurutkan.
@@ -33,7 +33,7 @@ Sumber APi :
 
 ## **2. Halaman Periksa**
 
-![alt text](ScreenShots/Perikasa.png)
+![alt text](ScreenShots/Perikasa.png)\
 **Penjelasan :**
 
 Digunakan untuk mengecek apakah anda terpapar virus Corona dan agar anda bisa tahu gejala awal Virus ini.\
@@ -45,7 +45,7 @@ Halaman ini merupakan Webview yang saya ambil dari situs website Satgas Jawa Tim
 
 halaman untuk melihat berita seputar kesehatan diindonesia
 
-![alt text](ScreenShots/Berita.png)
+![alt text](ScreenShots/Berita.png)\
 **Penjelasan :**
 
 1. isi berita (_dapat diklik diarea gambar_) => jika diklik maka akan masuk kedalam halaman Subberita, jika terjadi masalah pada link maka akan langsung masuk kedalam Browser.
@@ -56,7 +56,7 @@ halaman untuk melihat berita seputar kesehatan diindonesia
 
 ## **4. Halaman Profil**
 
-![alt text](ScreenShots/Profil.png)
+![alt text](ScreenShots/profil.png)\
 **Penjelasan :**
 
 1. Tombol About Me => untuk masuk kedalam halaman About.
@@ -67,7 +67,7 @@ halaman untuk melihat berita seputar kesehatan diindonesia
 
 ## **5. Halaman Proses Masuk**
 
-![alt text](ScreenShots/Auth.png)
+![alt text](ScreenShots/Auth.png)\
 **Penjelasan :**
 
 1. Form masuk => untuk memasukkan email dan password agar bisa masuk.
@@ -75,7 +75,7 @@ halaman untuk melihat berita seputar kesehatan diindonesia
 3. Masuk dengan Akun Google => tombol untuk masuk aplikasi dengan menggunakan akun google.
 4. tombol daftar akun => untuk masuk kedalam halaman daftar akun
 5. Form daftar => untuk memasukkan data yang akan digunakan untuk masuk kedalam aplikasi.
-6. Tombol Daftar => untuk megsubmit data agar bisa mendaftar kedalam aplikasi.
+6. Tombol Daftar => untuk mensubmit data agar bisa mendaftar kedalam aplikasi.
 7. Tombol Batal => untuk membatalkan Pendaftaran akun dan akan masuk kedalam halaman masuk.
 
 **catatan :**
