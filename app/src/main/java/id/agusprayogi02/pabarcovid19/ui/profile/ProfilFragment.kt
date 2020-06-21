@@ -13,7 +13,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import id.agusprayogi02.pabarcovid19.R
-import id.agusprayogi02.pabarcovid19.item.Users
+import id.agusprayogi02.pabarcovid19.database.entity.UsersModel
+import id.agusprayogi02.pabarcovid19.session.SessionData
 import id.agusprayogi02.pabarcovid19.ui.auth.LoginActivity
 import id.agusprayogi02.pabarcovid19.util.dismissLoading
 import id.agusprayogi02.pabarcovid19.util.showLoading
@@ -25,7 +26,6 @@ class ProfilFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -40,49 +40,27 @@ class ProfilFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         about_me.setOnClickListener {
-            startActivity(Intent(context,AboutMeActivity::class.java))
+            startActivity(Intent(context, AboutMeActivity::class.java))
         }
         val auth = FirebaseAuth.getInstance()
         if (auth.currentUser!!.uid.isNotEmpty()) {
-            showLoading(context!!, swipe_profil)
+            showLoading(requireContext(), swipe_profil)
             val user = auth.currentUser
-            val uid = user!!.uid
+            val uid = user?.uid ?: SessionData["UserData"]
 
-            if (user.displayName!!.isNotEmpty()) {
-                name_profil.text = user.displayName
-                Glide.with(context!!).load(user.photoUrl).into(img_profil)
-                user_id.text = user.uid
-                email_profile.text = user.email
-                no_phone.text = user.phoneNumber
-                dismissLoading(swipe_profil)
+            if (user!!.displayName != null) {
+                if (user.displayName!!.isEmpty()) {
+                    getData(uid)
+                } else {
+                    name_profil.text = user.displayName
+                    Glide.with(requireContext()).load(user.photoUrl).into(img_profil)
+                    user_id.text = user.uid
+                    email_profile.text = user.email
+                    no_phone.text = user.phoneNumber
+                    dismissLoading(swipe_profil)
+                }
             } else {
-                mRef.getReference("Users").addValueEventListener(object : ValueEventListener {
-                    override fun onCancelled(p0: DatabaseError) {
-                        TODO("Not yet implemented")
-                    }
-
-                    override fun onDataChange(p0: DataSnapshot) {
-                        if (p0.exists()) {
-                            for (h in p0.children) {
-                                val users = h.getValue(Users::class.java)
-                                if (users!!.uid == uid) {
-                                    name_profil.text = users.name
-                                    no_phone.text = users.phone
-                                    if (!users.foto.equals("Not", true)) {
-                                        Glide.with(context!!).load(users.foto).into(img_profil)
-                                    }
-                                    user_id.text = users.uid
-                                    email_profile.text = users.email
-                                    age_profile.text = users.umur + " Tahun"
-                                    gender_profil.text = users.Jk
-                                    address_profile.text = users.alamat
-                                }
-                            }
-                        }
-                        dismissLoading(swipe_profil)
-                    }
-
-                })
+                getData(uid)
             }
         }
 
@@ -90,8 +68,39 @@ class ProfilFragment : Fragment() {
             auth.signOut()
             if (auth.currentUser == null) {
                 val i = Intent(context, LoginActivity::class.java)
+                requireActivity().finish()
                 startActivity(i)
             }
         }
+    }
+
+    private fun getData(uid: String?) {
+        mRef.getReference("Users").addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                if (p0.exists()) {
+                    for (h in p0.children) {
+                        val users = h.getValue(UsersModel::class.java)
+                        if (users!!.uid == uid) {
+                            name_profil.text = users.name
+                            no_phone.text = users.phone
+                            if (!users.foto.equals("Not", true)) {
+                                Glide.with(context!!).load(users.foto).into(img_profil)
+                            }
+                            user_id.text = users.uid
+                            email_profile.text = users.email
+                            age_profile.text = users.umur + " Tahun"
+                            gender_profil.text = users.Jk
+                            address_profile.text = users.alamat
+                        }
+                    }
+                }
+                dismissLoading(swipe_profil)
+            }
+
+        })
     }
 }

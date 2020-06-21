@@ -9,6 +9,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface CovidService {
+//    Api Covid-19
     @GET("api/confirmed")
     fun getConfirmed(): Call<List<CovidConfirmedItem>>
 
@@ -21,7 +22,7 @@ interface CovidService {
     @GET("api/countries/{country}/confirmed")
     fun getCountryConfirm(@Path("country") country: String): Call<List<CovidCountryConfirmedItem>>
 
-
+//    Api News
     @GET("v2/top-headlines")
     fun getNews(
         @Query("country") country: String,

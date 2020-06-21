@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.thecode.aestheticdialogs.AestheticDialog
 import id.agusprayogi02.pabarcovid19.R
-import id.agusprayogi02.pabarcovid19.item.Users
+import id.agusprayogi02.pabarcovid19.database.entity.UsersModel
 import id.agusprayogi02.pabarcovid19.util.CustomProgressBar
 import id.agusprayogi02.pabarcovid19.util.tampilToast
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -104,7 +104,7 @@ class SignUpActivity : AppCompatActivity() {
         val db = mRef.getReference("Users/$uid")
         val name = full_name_signUP.text.toString()
         val phone = phone_signUP.text.toString()
-        val user = Users(
+        val user = UsersModel(
             uid,
             name,
             email,

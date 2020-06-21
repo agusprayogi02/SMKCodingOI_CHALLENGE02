@@ -68,12 +68,12 @@ class LoginActivity : AppCompatActivity() {
                 auth.signInWithEmailAndPassword(email, pass)
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
-                            AestheticDialog.showToaster(
-                                this,
-                                "Success",
-                                "Berhasil Masuk",
-                                AestheticDialog.SUCCESS
-                            )
+//                            AestheticDialog.showToaster(
+//                                this,
+//                                "Success",
+//                                "Berhasil Masuk",
+//                                AestheticDialog.SUCCESS
+//                            )
                             updateUI(auth.currentUser)
                         } else Log.w(TAG, "signInWithCredential:failure", it.exception)
                         progressBar.dialog!!.dismiss()
