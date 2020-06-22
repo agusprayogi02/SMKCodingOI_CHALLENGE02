@@ -25,26 +25,26 @@
         <item>Lainnya</item>
     </string-array>
 
-    <string name="soal_1">1. Apakah Anda mengalami salah satu dari yang berikut:</string>
+    <string name="soal_1">Apakah Anda mengalami salah satu dari yang berikut:</string>
     <string name="soal_1a">~ Kesulitan bernafas yang parah (Bernafas dengan sangat cepat atau berbicara dalam satu kata)</string>
     <string name="soal_1b">~ Nyeri dada yang parah</string>
     <string name="soal_1c">~ Sulit untuk bangun</string>
     <string name="soal_1d">~ Merasa kebingungan</string>
     <string name="soal_1e">~ Penurunan kesadaran</string>
 
-    <string name="soal_2">2. Apakah Anda mengalami salah satu dari yang berikut:</string>
+    <string name="soal_2">Apakah Anda mengalami salah satu dari yang berikut:</string>
     <string name="soal_2a">~ Nafas yang pendek saat istirahat</string>
     <string name="soal_2b">~ Ketidakmampuan untuk berbaring karena kesulitan bernafas</string>
     <string name="soal_2c">~ Kondisi kesehatan kronis yang anda alami dirasakan lebih berat karena kesulitan bernapas</string>
 
-    <string name="soal_3">3. Apakah Anda mengalami salah satu dari yang berikut:</string>
+    <string name="soal_3">Apakah Anda mengalami salah satu dari yang berikut:</string>
     <string name="soal_3a">=> Demam, Batuk, Bersin, Sakit Tenggorokan, Sulit Bernafas</string>
 
-    <string name="soal_4">4. Apakah anda pernah muncul gejala sekitar 14 hari setelah travelling ke luar negeri? atau ke kota terjangkit?</string>
+    <string name="soal_4">Apakah anda pernah muncul gejala sekitar 14 hari setelah travelling ke luar negeri? atau ke kota terjangkit?</string>
 
-    <string name="soal_5">5. Apakah Anda memberikan perawatan atau melakukan kontak dekat dengan seseorang dengan COVID-19 (kemungkinan atau dikonfirmasi) saat mereka sakit (batuk, demam, bersin, atau sakit tenggorokan)?</string>
+    <string name="soal_5">Apakah Anda memberikan perawatan atau melakukan kontak dekat dengan seseorang dengan COVID-19 (kemungkinan atau dikonfirmasi) saat mereka sakit (batuk, demam, bersin, atau sakit tenggorokan)?</string>
 
-    <string name="soal_6">6. Apakah Anda memiliki kontak dekat dengan seseorang yang bepergian ke luar Negeri dalam 14 hari terakhir yang menjadi sakit (batuk, demam, bersin, atau sakit tenggorokan)?</string>
+    <string name="soal_6">Apakah Anda memiliki kontak dekat dengan seseorang yang bepergian ke luar Negeri dalam 14 hari terakhir yang menjadi sakit (batuk, demam, bersin, atau sakit tenggorokan)?</string>
 
     <string name="periksa">Belum pernah melakukan Test Self Check Up Covid-19. Klik tombol Check Up untuk melakukan pemeriksaan Kesahatan Anda.</string>
 

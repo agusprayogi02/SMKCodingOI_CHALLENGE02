@@ -1,17 +1,13 @@
 package id.agusprayogi02.pabarcovid19.ui.check
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebResourceError
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import id.agusprayogi02.pabarcovid19.R
 import id.agusprayogi02.pabarcovid19.util.CustomProgressBar
-import id.agusprayogi02.pabarcovid19.util.tampilToast
 import kotlinx.android.synthetic.main.fragment_check_up.*
 
 class CheckUpFragment : Fragment() {
@@ -34,6 +30,10 @@ class CheckUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        getWebView()
+        btn_check_up.setOnClickListener {
+            val i = Intent(activity, CheckUpActivity::class.java)
+            startActivity(i)
+        }
     }
 
 //    private fun getWebView() {
