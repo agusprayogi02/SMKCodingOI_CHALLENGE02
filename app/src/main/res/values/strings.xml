@@ -46,5 +46,10 @@
 
     <string name="soal_6">6. Apakah Anda memiliki kontak dekat dengan seseorang yang bepergian ke luar Negeri dalam 14 hari terakhir yang menjadi sakit (batuk, demam, bersin, atau sakit tenggorokan)?</string>
 
+    <string name="periksa">Belum pernah melakukan Test Self Check Up Covid-19. Klik tombol Check Up untuk melakukan pemeriksaan Kesahatan Anda.</string>
+
     <string name="jawab_1">Gejala-gejala ini membutuhkan perhatian segera. Anda harus segera menelepon Rumah Sakit Terdekat, atau langsung pergi ke instalasi gawat darurat terdekat.</string>
+    <string name="jawab_2">Anda kemungkinan besar tidak terinfeksi oleh COVID-19, Namun anda disarankan untuk tetap tinggal dirumah. Infeksi anda mungkin disebabkan virus selain COVID-19, Oleh karena itu anda tidak perlu dites oleh COVID-19. Meskipun demikian, hindarilah keluar rumah jika memungkinkan. Penyakit anda akan sembuh sendiri dengan cukup makan dan istirahat</string>
+    <string name="jawab_3">Sebagai tindakan pencegahan, Pemerintah meminta siapa saja yang mengalami gejala (demam, batuk, bersin, sakit tenggorokan, atau sulit bernapas) untuk tinggal di rumah selama 14 hari untuk mencegah penyebaran. Anda disarankan untuk tidak keluar ke tempat publik, tinggal dirumah saja dan tidak boleh ada tamu. Anda disarankan untuk menelepon call center Pemerintah Terdekat, di mohon anda jangan berangkat ke UGD, Rumah sakit, atau klinik, kecuali kalau gejala anda semakin buruk segera pergi ke dokter terdekat.</string>
+    <string name="jawab_4">Anda kemungkinan besar tidak terinfeksi oleh COVID-19, Namun anda disarankan untuk tetap tinggal dirumah. Infeksi anda mungkin disebabkan virus selain COVID-19, Oleh karena itu anda tidak perlu dites oleh COVID-19. Meskipun demikian, hindarilah keluar rumah jika memungkinkan. </string>
 </resources>
