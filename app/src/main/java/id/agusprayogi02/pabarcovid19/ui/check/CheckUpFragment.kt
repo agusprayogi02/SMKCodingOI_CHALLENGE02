@@ -30,10 +30,15 @@ class CheckUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        getWebView()
+        init()
         btn_check_up.setOnClickListener {
             val i = Intent(activity, CheckUpActivity::class.java)
             startActivity(i)
         }
+    }
+
+    fun init() {
+
     }
 
 //    private fun getWebView() {

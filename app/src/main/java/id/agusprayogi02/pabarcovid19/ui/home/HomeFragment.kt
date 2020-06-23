@@ -65,7 +65,7 @@ class HomeFragment : Fragment() {
 
     private fun setSpinner() {
         val adapter = ArrayAdapter.createFromResource(
-            context!!,
+            requireContext(),
             R.array.spinner_string,
             android.R.layout.simple_spinner_item
         )
@@ -82,7 +82,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun callApiGetCovidConfirm() {
-        showLoading(context!!, swipe_refresh)
+        showLoading(requireContext(), swipe_refresh)
 //        progressBar.show(context!!, "Memuat..")
 
         val httpClient = httpClient()
@@ -135,7 +135,7 @@ class HomeFragment : Fragment() {
 
     private fun tampilData(body: List<CovidConfirmedItem>) {
         list_country.layoutManager = LinearLayoutManager(context)
-        list_country.adapter = CovidConfirmedAdapter(context!!, body) {
+        list_country.adapter = CovidConfirmedAdapter(requireContext(), body) {
             CountryData.Session(context)
             CountryData["country"] = it.countryRegion
             val intent = Intent(context, CountryConfirmActivity::class.java)
