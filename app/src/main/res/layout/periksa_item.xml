@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -24,6 +24,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/date_periksa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Tanggal" />
@@ -37,11 +38,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/google_sans_bold"
-                        android:text="Hasil :   "
+                        android:text="Keadaan :   "
                         android:textColor="@color/md_black_1000" />
 
                     <TextView
-                        android:id="@+id/hasil"
+                        android:id="@+id/hasil_periksa"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -52,24 +53,25 @@
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/btn_hps_periksa"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/btn_default_selector"
                 android:orientation="vertical">
-                <ImageButton
+                <ImageView
                     android:layout_width="22dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/ic_delete"
-                    android:contentDescription="delete" />
+                    android:background="@drawable/ic_delete"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hapus"
                     android:textSize="8sp"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     android:layout_gravity="center"/>
             </LinearLayout>

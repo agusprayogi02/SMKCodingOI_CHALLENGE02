@@ -1,10 +1,18 @@
 package id.agusprayogi02.pabarcovid19.ui.check
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import id.agusprayogi02.pabarcovid19.R
+import id.agusprayogi02.pabarcovid19.database.entity.PeriksaModel
+import id.agusprayogi02.pabarcovid19.session.SessionData
+import id.agusprayogi02.pabarcovid19.util.getRandomString
 import id.agusprayogi02.pabarcovid19.util.tampilToast
+import id.agusprayogi02.pabarcovid19.viewmodel.PeriksaViewModel
 import kotlinx.android.synthetic.main.activity_check_up.*
+import java.util.*
 
 class CheckUpActivity : AppCompatActivity() {
 
@@ -16,12 +24,18 @@ class CheckUpActivity : AppCompatActivity() {
     private var jawab5 = 0
     private var jawab6 = 0
 
+    lateinit var ref: DatabaseReference
+    private val viewModel by viewModels<PeriksaViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_check_up)
         check_batal.setOnClickListener {
             finish()
         }
+
+        ref = FirebaseDatabase.getInstance().reference
+
         nilai = 0
         soal_1.setOnCheckedChangeListener { group, checkedId ->
             jawab1 = 0
@@ -83,15 +97,25 @@ class CheckUpActivity : AppCompatActivity() {
             } else {
                 nilai = jawab1 + jawab2 + jawab3 + jawab4 + jawab5 + jawab6
                 val jawab: String = if (nilai == 0) {
-                    getString(R.string.jawab_4)
+                    "Sehat"
                 } else if (nilai == 1) {
-                    getString(R.string.jawab_2)
+                    "Sehat"
                 } else if (nilai in 2..4) {
-                    getString(R.string.jawab_1)
+                    "Butuh diPeriksa"
                 } else {
-                    getString(R.string.jawab_3)
+                    "Butuh diRawat"
                 }
-
+                val tgl = Date()
+                val uid = SessionData["UserData"]
+                val data =
+                    PeriksaModel(getRandomString(9999), nilai.toString(), jawab, tgl.toString())
+                ref.child(uid!!).child("History").push().setValue(data).addOnCompleteListener {
+                    tampilToast(this, "Data Berhasil Disimpan")
+                    if (it.isSuccessful) {
+                        viewModel.addData(data)
+                    }
+                }
+                finish()
             }
         }
 

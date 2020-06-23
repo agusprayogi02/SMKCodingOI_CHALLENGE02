@@ -13,7 +13,7 @@ class UsersViewModel() : ViewModel(){
     lateinit var repository: UsersRepository
 
     fun init(context: Context){
-        val usersDao = AppDatabase.getDatabase(context).Users()
+        val usersDao = AppDatabase.getDatabase(context).usersDao()
         repository = UsersRepository(usersDao)
     }
 
