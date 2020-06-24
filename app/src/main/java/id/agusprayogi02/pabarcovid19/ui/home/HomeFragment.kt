@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -20,6 +22,7 @@ import id.agusprayogi02.pabarcovid19.data.httpClient
 import id.agusprayogi02.pabarcovid19.item.CovidConfirmedItem
 import id.agusprayogi02.pabarcovid19.session.CountryData
 import id.agusprayogi02.pabarcovid19.util.*
+import id.agusprayogi02.pabarcovid19.viewmodel.CoronaViewModel
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
@@ -29,6 +32,8 @@ import retrofit2.Response
 class HomeFragment : Fragment() {
 
     private var dataSort = ""
+    private val viewModel by viewModels<CoronaViewModel>()
+    private lateinit var coronas:List<CovidConfirmedItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +51,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         CountryData.Session(context)
         CountryData["Sorted"] = "Terkonfirmasi"
+        viewModel.init(requireContext())
         callApiGetCovidConfirm()
         setSpinner()
         setSorted()
@@ -114,7 +120,9 @@ class HomeFragment : Fragment() {
                     response.isSuccessful -> {
                         when {
                             response.body()?.size != 0 -> {
-                                tampilData(response.body()!!)
+//                                tampilData(response.body()!!)
+                                response.body()?.let { viewModel.insertAll(it) }
+                                tampilData()
                                 initImage()
                             }
                             else -> {
@@ -130,9 +138,14 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun tampilData(body: List<CovidConfirmedItem>) {
+    private fun tampilData() {
+        viewModel.allCorona.observe(viewLifecycleOwner, Observer {
+            it.let {
+                coronas = it
+            }
+        })
         list_country.layoutManager = LinearLayoutManager(context)
-        list_country.adapter = CovidConfirmedAdapter(requireContext(), body) {
+        list_country.adapter = CovidConfirmedAdapter(requireContext(), coronas) {
             CountryData.Session(context)
             CountryData["country"] = it.countryRegion
             val intent = Intent(context, CountryConfirmActivity::class.java)

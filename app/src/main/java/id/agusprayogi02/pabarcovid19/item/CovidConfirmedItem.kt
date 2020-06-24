@@ -1,9 +1,12 @@
 package id.agusprayogi02.pabarcovid19.item
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+@Entity(tableName = "corona")
 data class CovidConfirmedItem(
     @SerializedName("active")
     val active: Int,
@@ -40,5 +43,5 @@ data class CovidConfirmedItem(
     @SerializedName("recovered")
     val recovered: Int,
     @SerializedName("uid")
-    val uid: Int
-):Serializable
+    @PrimaryKey val uid: Int
+) : Serializable
