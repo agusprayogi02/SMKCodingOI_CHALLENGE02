@@ -14,10 +14,7 @@ import id.agusprayogi02.pabarcovid19.data.apiRequest
 import id.agusprayogi02.pabarcovid19.data.httpClient
 import id.agusprayogi02.pabarcovid19.item.CovidCountryConfirmedItem
 import id.agusprayogi02.pabarcovid19.session.CountryData
-import id.agusprayogi02.pabarcovid19.util.CustomProgressBar
-import id.agusprayogi02.pabarcovid19.util.dismissLoading
-import id.agusprayogi02.pabarcovid19.util.showLoading
-import id.agusprayogi02.pabarcovid19.util.tampilToast
+import id.agusprayogi02.pabarcovid19.util.*
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_country_confirm.*
 import retrofit2.Call
@@ -70,7 +67,7 @@ class CountryConfirmActivity : AppCompatActivity() {
                         }
                     }
                     else -> {
-                        tampilToast(this@CountryConfirmActivity, "Gagal")
+                        connnetError(this@CountryConfirmActivity)
                     }
                 }
             }

@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
+import com.thecode.aestheticdialogs.AestheticDialog
 import id.agusprayogi02.pabarcovid19.R
 import id.agusprayogi02.pabarcovid19.adapter.PeriksaAdapter
 import id.agusprayogi02.pabarcovid19.database.entity.PeriksaModel
@@ -45,9 +46,40 @@ class CheckUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        getWebView()
-        init()
         getData()
         viewModel.init(requireContext())
+        viewModel.allPeriksa.observe(viewLifecycleOwner, Observer { periksa ->
+            init(periksa)
+            periksa.map {
+                val data = it
+                hasil_test.text = it.Kondisi
+                val nilai = data.Nilai.toInt()
+                val jawab: String = if (nilai == 0) {
+                    getString(R.string.jawab_1)
+                } else if (nilai == 1) {
+                    getString(R.string.jawab_2)
+                } else if (nilai in 2..4) {
+                    getString(R.string.jawab_3)
+                } else {
+                    getString(R.string.jawab_4)
+                }
+                kesimpulan.text = jawab
+                val color = if (nilai == 0) {
+                    resources.getColor(R.color.color_recovered)
+                } else if (nilai == 1) {
+                    resources.getColor(R.color.md_light_green_300)
+                } else if (nilai in 2..4) {
+                    resources.getColor(R.color.color_active)
+                } else {
+                    resources.getColor(R.color.color_death)
+                }
+                kesimpulan.setTextColor(color)
+                hasil_test.setTextColor(color)
+                btn_check_up.text = "Check Up Again"
+                btn_check_up.setPadding(10,0,10,0)
+            }
+
+        })
         btn_check_up.setOnClickListener {
             val i = Intent(activity, CheckUpActivity::class.java)
             startActivity(i)
@@ -78,10 +110,15 @@ class CheckUpFragment : Fragment() {
         })
     }
 
-    private fun init() {
+    private fun init(data: List<PeriksaModel>) {
         list_check_up.layoutManager = LinearLayoutManager(context)
-        adapter = PeriksaAdapter(requireContext(), dataPeriksa){
-
+        adapter = PeriksaAdapter(requireContext(), data) {periksa->
+            ref.child(SessionData["UserData"]!!).child("History").child(periksa.Key).removeValue().addOnCompleteListener {
+                if (it.isSuccessful){
+                    AestheticDialog.showToaster(activity,"Hapus","Data Berhasil diHapus",AestheticDialog.SUCCESS)
+                    viewModel.delete(periksa)
+                }
+            }
         }
         list_check_up.adapter = adapter
     }

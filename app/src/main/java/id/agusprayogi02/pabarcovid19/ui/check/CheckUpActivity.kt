@@ -34,6 +34,7 @@ class CheckUpActivity : AppCompatActivity() {
             finish()
         }
 
+        viewModel.init(baseContext)
         ref = FirebaseDatabase.getInstance().reference
 
         nilai = 0

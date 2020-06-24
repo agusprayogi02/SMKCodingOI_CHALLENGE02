@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.periksa_item.*
 
 class PeriksaAdapter(
     private val context: Context,
-    private val items: ArrayList<PeriksaModel>,
+    private val items: List<PeriksaModel>,
     private val listener: (PeriksaModel) -> Unit
 ) : RecyclerView.Adapter<PeriksaAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(

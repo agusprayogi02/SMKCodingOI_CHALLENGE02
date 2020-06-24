@@ -16,10 +16,7 @@ import id.agusprayogi02.pabarcovid19.data.httpClient
 import id.agusprayogi02.pabarcovid19.item.Article
 import id.agusprayogi02.pabarcovid19.item.NewsHealth
 import id.agusprayogi02.pabarcovid19.session.CountryData
-import id.agusprayogi02.pabarcovid19.util.CustomProgressBar
-import id.agusprayogi02.pabarcovid19.util.dismissLoading
-import id.agusprayogi02.pabarcovid19.util.showLoading
-import id.agusprayogi02.pabarcovid19.util.tampilToast
+import id.agusprayogi02.pabarcovid19.util.*
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_news.*
 import retrofit2.Call
@@ -48,7 +45,7 @@ class NewsFragment : Fragment() {
     }
 
     private fun callApinews() {
-        showLoading(context!!, swipe_news)
+        showLoading(requireContext(), swipe_news)
 //        progressBar.show(context!!, "Memuat...")
 
         val httpClient = httpClient()
@@ -75,7 +72,7 @@ class NewsFragment : Fragment() {
                         tampilData(response.body()!!.articles)
                     }
                     else -> {
-                        tampilToast(context!!, "Gagal")
+                        connnetError(activity!!)
                     }
                 }
             }
@@ -85,7 +82,7 @@ class NewsFragment : Fragment() {
 
     private fun tampilData(list: List<Article>) {
         list_news.layoutManager = LinearLayoutManager(context)
-        list_news.adapter = NewsAdapter(context!!, list) {
+        list_news.adapter = NewsAdapter(requireContext(), list) {
             CountryData.Session(context)
             CountryData["urlNews"] = it.url
             CountryData["source"] = it.source.name
