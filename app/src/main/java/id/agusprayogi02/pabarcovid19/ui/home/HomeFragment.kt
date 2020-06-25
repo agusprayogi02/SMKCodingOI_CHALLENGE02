@@ -19,9 +19,14 @@ import id.agusprayogi02.pabarcovid19.data.AppConstants
 import id.agusprayogi02.pabarcovid19.data.CovidService
 import id.agusprayogi02.pabarcovid19.data.apiRequest
 import id.agusprayogi02.pabarcovid19.data.httpClient
+import id.agusprayogi02.pabarcovid19.database.entity.CoronaModel
 import id.agusprayogi02.pabarcovid19.item.CovidConfirmedItem
 import id.agusprayogi02.pabarcovid19.session.CountryData
-import id.agusprayogi02.pabarcovid19.util.*
+import id.agusprayogi02.pabarcovid19.util.connnetError
+import id.agusprayogi02.pabarcovid19.util.dismissLoading
+import id.agusprayogi02.pabarcovid19.util.showLoading
+import id.agusprayogi02.pabarcovid19.util.tampilToast
+import id.agusprayogi02.pabarcovid19.viewmodel.CoronaViewModel
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
@@ -31,6 +36,8 @@ import retrofit2.Response
 class HomeFragment : Fragment() {
 
     private var dataSort = ""
+    private val viewModel by viewModels<CoronaViewModel>()
+    private var coronas: ArrayList<CoronaModel> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +55,11 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         CountryData.Session(context)
         CountryData["Sorted"] = "Terkonfirmasi"
+        viewModel.init(requireContext())
         callApiGetCovidConfirm()
         setSpinner()
         setSorted()
+        tampilData()
     }
 
     private fun setSorted() {
@@ -87,10 +96,10 @@ class HomeFragment : Fragment() {
         val httpClient = httpClient()
         val apiRequest = apiRequest<CovidService>(httpClient, AppConstants.COVIDAPI_URL)
         val call = when {
-            dataSort.equals("Sembuh",true) -> {
+            dataSort.equals("Sembuh", true) -> {
                 apiRequest.getRecovered()
             }
-            dataSort.equals("Meninggal",true) -> {
+            dataSort.equals("Meninggal", true) -> {
                 apiRequest.getDeaths()
             }
             else -> {
@@ -116,7 +125,35 @@ class HomeFragment : Fragment() {
                     response.isSuccessful -> {
                         when {
                             response.body()?.size != 0 -> {
-                                tampilData(response.body()!!)
+//                                tampilData(response.body()!!)
+                                response.body().let { cors ->
+                                    if (cors != null) {
+                                        for (h in cors) {
+                                            val prov = if (h.provinceState != null) {
+                                                h.provinceState
+                                            } else {
+                                                " "
+                                            }
+                                            val iso2 = if (h.iso2 == null) {
+                                                " "
+                                            } else {
+                                                h.iso2
+                                            }
+                                            val corona = CoronaModel(
+                                                h.uid,
+                                                iso2,
+                                                prov,
+                                                h.countryRegion,
+                                                h.recovered,
+                                                h.deaths,
+                                                h.confirmed,
+                                                h.lastUpdate
+                                            )
+                                            coronas.add(corona)
+                                        }
+                                        viewModel.insertAll(coronas)
+                                    }
+                                }
                                 initImage()
                             }
                             else -> {
@@ -132,14 +169,18 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun tampilData(body:List<CovidConfirmedItem>) {
+    private fun tampilData() {
         list_country.layoutManager = LinearLayoutManager(context)
-        list_country.adapter = CovidConfirmedAdapter(requireContext(), body) {
-            CountryData.Session(context)
-            CountryData["country"] = it.countryRegion
-            val intent = Intent(context, CountryConfirmActivity::class.java)
-            startActivity(intent)
-        }
+        viewModel.allCorona.observe(viewLifecycleOwner, Observer { data ->
+            data.let { list ->
+                list_country.adapter = CovidConfirmedAdapter(requireContext(), list) {
+                    CountryData.Session(context)
+                    CountryData["country"] = it.countryRegion
+                    val intent = Intent(context, CountryConfirmActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        })
     }
 
     override fun onDestroy() {

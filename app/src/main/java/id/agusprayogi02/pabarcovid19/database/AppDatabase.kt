@@ -4,19 +4,21 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import id.agusprayogi02.pabarcovid19.database.dao.CoronaDao
 import id.agusprayogi02.pabarcovid19.database.dao.PeriksaDao
 import id.agusprayogi02.pabarcovid19.database.dao.UsersDao
+import id.agusprayogi02.pabarcovid19.database.entity.CoronaModel
 import id.agusprayogi02.pabarcovid19.database.entity.PeriksaModel
 import id.agusprayogi02.pabarcovid19.database.entity.UsersModel
-import id.agusprayogi02.pabarcovid19.item.CovidConfirmedItem
 
 @Database(
-    entities = [UsersModel::class, PeriksaModel::class],
-    version = 5,
+    entities = [UsersModel::class, PeriksaModel::class, CoronaModel::class],
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
+    abstract fun coronaDao(): CoronaDao
     abstract fun periksaDao(): PeriksaDao
     abstract fun usersDao(): UsersDao
 
