@@ -20,4 +20,13 @@ class UsersViewModel() : ViewModel(){
     fun addData(user:UsersModel) = viewModelScope.launch(Dispatchers.IO){
         repository.insertUsers(user)
     }
+
+    fun insertAll(users:List<UsersModel>) = viewModelScope.launch(Dispatchers.IO){
+        repository.deleteAllUsers()
+        repository.insertAllUsers(users)
+    }
+
+    fun updateData(user: UsersModel) = viewModelScope.launch(Dispatchers.IO){
+        repository.updateUsers(user)
+    }
 }

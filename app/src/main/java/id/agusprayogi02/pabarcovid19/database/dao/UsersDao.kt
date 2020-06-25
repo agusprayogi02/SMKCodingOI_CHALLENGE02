@@ -8,7 +8,10 @@ import id.agusprayogi02.pabarcovid19.database.entity.UsersModel
 interface UsersDao {
 
     @Query("SELECT * FROM users")
-    fun getAllUsers():LiveData<List<UsersModel>>
+    fun getAllUsers(): LiveData<List<UsersModel>>
+
+    @Query("SELECT * FROM users WHERE uid = :uid")
+    fun getUser(uid: String): LiveData<UsersModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: UsersModel)

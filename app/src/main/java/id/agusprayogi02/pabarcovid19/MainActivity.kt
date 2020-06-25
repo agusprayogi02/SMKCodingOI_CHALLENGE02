@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
             // Log and toast
             val msg = token
             Log.d(TAG, msg)
-            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
         })
 
         view_pager.adapter = adapter
