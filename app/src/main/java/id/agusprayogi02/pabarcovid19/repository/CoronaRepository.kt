@@ -6,13 +6,15 @@ import id.agusprayogi02.pabarcovid19.database.entity.CoronaModel
 
 class CoronaRepository(private val coronaDao: CoronaDao) {
 
-    var allCorona: LiveData<List<CoronaModel>> = coronaDao.getAllCoronas()
+    var allCoronaSem: LiveData<List<CoronaModel>> = coronaDao.getAllRecover()
+    var allCoronaMen: LiveData<List<CoronaModel>> = coronaDao.getAllDeath()
+    var allCoronaKon: LiveData<List<CoronaModel>> = coronaDao.getAllConfirm()
 
     suspend fun insertAll(coronas: List<CoronaModel>) {
         coronaDao.insertAllCor(coronas)
     }
 
-    suspend fun deleteAll(){
+    suspend fun deleteAll() {
         coronaDao.deleteAll()
     }
 }

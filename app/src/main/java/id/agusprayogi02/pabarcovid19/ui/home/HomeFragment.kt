@@ -59,7 +59,35 @@ class HomeFragment : Fragment() {
         callApiGetCovidConfirm()
         setSpinner()
         setSorted()
-        tampilData()
+        tampilDataKon()
+    }
+
+    private fun tampilDataMen() {
+        list_country.layoutManager = LinearLayoutManager(context)
+        viewModel.allCoronaMen.observe(viewLifecycleOwner, Observer { data ->
+            data.let { list ->
+                list_country.adapter = CovidConfirmedAdapter(requireContext(), list) {
+                    CountryData.Session(context)
+                    CountryData["country"] = it.countryRegion
+                    val intent = Intent(context, CountryConfirmActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        })
+    }
+
+    private fun tampilDataKon() {
+        list_country.layoutManager = LinearLayoutManager(context)
+        viewModel.allCoronaKon.observe(viewLifecycleOwner, Observer { data ->
+            data.let { list ->
+                list_country.adapter = CovidConfirmedAdapter(requireContext(), list) {
+                    CountryData.Session(context)
+                    CountryData["country"] = it.countryRegion
+                    val intent = Intent(context, CountryConfirmActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        })
     }
 
     private fun setSorted() {
@@ -67,7 +95,17 @@ class HomeFragment : Fragment() {
             val isi = spin_sort.selectedItem.toString()
             CountryData["Sorted"] = isi
             dataSort = isi
-            callApiGetCovidConfirm()
+            when {
+                dataSort.equals("Sembuh", true) -> {
+                    tampilDataSem()
+                }
+                dataSort.equals("Meninggal", true) -> {
+                    tampilDataMen()
+                }
+                else -> {
+                    tampilDataKon()
+                }
+            }
         }
     }
 
@@ -95,17 +133,7 @@ class HomeFragment : Fragment() {
 
         val httpClient = httpClient()
         val apiRequest = apiRequest<CovidService>(httpClient, AppConstants.COVIDAPI_URL)
-        val call = when {
-            dataSort.equals("Sembuh", true) -> {
-                apiRequest.getRecovered()
-            }
-            dataSort.equals("Meninggal", true) -> {
-                apiRequest.getDeaths()
-            }
-            else -> {
-                apiRequest.getConfirmed()
-            }
-        }
+        val call = apiRequest.getConfirmed()
 
         call.enqueue(object : Callback<List<CovidConfirmedItem>> {
             override fun onFailure(call: Call<List<CovidConfirmedItem>>, t: Throwable) {
@@ -125,7 +153,6 @@ class HomeFragment : Fragment() {
                     response.isSuccessful -> {
                         when {
                             response.body()?.size != 0 -> {
-//                                tampilData(response.body()!!)
                                 response.body().let { cors ->
                                     if (cors != null) {
                                         for (h in cors) {
@@ -169,9 +196,9 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun tampilData() {
+    private fun tampilDataSem() {
         list_country.layoutManager = LinearLayoutManager(context)
-        viewModel.allCorona.observe(viewLifecycleOwner, Observer { data ->
+        viewModel.allCoronaSem.observe(viewLifecycleOwner, Observer { data ->
             data.let { list ->
                 list_country.adapter = CovidConfirmedAdapter(requireContext(), list) {
                     CountryData.Session(context)

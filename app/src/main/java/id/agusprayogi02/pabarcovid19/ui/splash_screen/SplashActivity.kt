@@ -16,6 +16,7 @@ import androidx.dynamicanimation.animation.SpringForce
 import com.google.firebase.auth.FirebaseAuth
 import id.agusprayogi02.pabarcovid19.MainActivity
 import id.agusprayogi02.pabarcovid19.R
+import id.agusprayogi02.pabarcovid19.session.CountryData
 import id.agusprayogi02.pabarcovid19.session.SessionData
 import id.agusprayogi02.pabarcovid19.ui.auth.LoginActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
@@ -43,7 +44,6 @@ class SplashActivity : AppCompatActivity() {
                 springForce.dampingRatio = SpringForce.DAMPING_RATIO_HIGH_BOUNCY
                 springForce.stiffness = SpringForce.STIFFNESS_VERY_LOW
             }
-
             springAnimation.spring = springForce
             springAnimation.setStartValue(80f)
             springAnimation.addEndListener { _, _, _, _ ->
