@@ -37,7 +37,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_margin="20dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -45,29 +45,35 @@
                     android:layout_width="210dp"
                     android:layout_height="210dp"
                     android:layout_gravity="center"
-                    android:padding="@dimen/padd_10"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/outline_edit"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padd_10">
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/image_change"
                         android:layout_width="175dp"
                         android:layout_height="175dp"
-                        android:layout_marginHorizontal="35dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_profile" />
+                        android:layout_marginHorizontal="35dp"
+                        android:src="@drawable/ic_user_account" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Ganti Foto Profile"
                         android:fontFamily="@font/sf_bold"
-                        android:textColor="@color/md_black_1000"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:text="Ganti Foto Profile"
+                        android:textColor="@color/md_black_1000" />
                 </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/mbProfil"
+                    android:background="@drawable/outline_edit"
                     android:hint="Nama Lengkap"
+                    android:paddingTop="2dp"
                     app:startIconContentDescription="icon"
                     app:startIconDrawable="@drawable/ic_name_black">
 
@@ -83,16 +89,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/mbProfil"
-                    android:hint="email"
-                    app:startIconContentDescription="icon"
+                    android:background="@drawable/outline_edit"
                     android:enabled="false"
+                    android:hint="email"
+                    android:paddingTop="2dp"
+                    app:startIconContentDescription="icon"
                     app:startIconDrawable="@drawable/ic_email_black">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/email_profiles"
                         android:layout_width="match_parent"
-                        android:enabled="false"
                         android:layout_height="wrap_content"
+                        android:enabled="false"
                         android:inputType="textEmailAddress" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -101,7 +109,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/mbProfil"
+                    android:background="@drawable/outline_edit"
                     android:hint="Nomer HP"
+                    android:paddingTop="2dp"
                     app:startIconContentDescription="icon"
                     app:startIconDrawable="@drawable/ic_phone_black">
 
@@ -117,7 +127,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/mbProfil"
+                    android:background="@drawable/outline_edit"
                     android:hint="Umur"
+                    android:paddingTop="2dp"
                     app:startIconContentDescription="icon"
                     app:startIconDrawable="@drawable/ic_umur_black">
 
@@ -139,7 +151,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/mbProfil"
+                    android:background="@drawable/outline_edit"
                     android:hint="Alamat"
+                    android:paddingTop="2dp"
                     app:startIconContentDescription="icon"
                     app:startIconDrawable="@drawable/ic_address_out">
 

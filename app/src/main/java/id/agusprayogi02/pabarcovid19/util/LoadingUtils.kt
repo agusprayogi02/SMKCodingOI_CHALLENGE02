@@ -12,6 +12,8 @@ fun showLoading(context: Context, swipeRefreshLayout: SwipeRefreshLayout){
 }
 
 fun dismissLoading(swipeRefreshLayout: SwipeRefreshLayout){
-    swipeRefreshLayout.isEnabled = false
-    swipeRefreshLayout.isRefreshing = false
+    if (swipeRefreshLayout.isRefreshing){
+        swipeRefreshLayout.isEnabled = false
+        swipeRefreshLayout.isRefreshing = false
+    }
 }

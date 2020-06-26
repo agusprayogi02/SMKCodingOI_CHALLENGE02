@@ -39,7 +39,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="380dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="25dp"
             android:layout_marginTop="200dp">
 
@@ -61,7 +61,7 @@
                     android:padding="5dp">
 
                     <ImageView
-                        android:layout_width="25dp"
+                        android:layout_width="20dp"
                         android:layout_height="25dp"
                         android:src="@drawable/ic_edit" />
 
@@ -72,8 +72,7 @@
                         android:layout_marginHorizontal="5dp"
                         android:fontFamily="@font/sf_bold"
                         android:text="Edit Profile"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:textColor="@color/white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -200,7 +199,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/mbProfil"
+                    android:layout_marginBottom="20dp"
                     android:orientation="horizontal">
 
                     <ImageView

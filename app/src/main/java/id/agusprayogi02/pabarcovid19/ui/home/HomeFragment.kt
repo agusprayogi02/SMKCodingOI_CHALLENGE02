@@ -138,7 +138,9 @@ class HomeFragment : Fragment() {
         call.enqueue(object : Callback<List<CovidConfirmedItem>> {
             override fun onFailure(call: Call<List<CovidConfirmedItem>>, t: Throwable) {
                 tampilToast(context!!, "Gagal " + t.message)
-                dismissLoading(swipe_refresh)
+                if (swipe_refresh != null) {
+                    dismissLoading(swipe_refresh)
+                }
 //                progressBar.dialog!!.dismiss()
             }
 
@@ -146,7 +148,9 @@ class HomeFragment : Fragment() {
                 call: Call<List<CovidConfirmedItem>>,
                 response: Response<List<CovidConfirmedItem>>
             ) {
-                dismissLoading(swipe_refresh)
+                if (swipe_refresh != null) {
+                    dismissLoading(swipe_refresh)
+                }
 //                progressBar.dialog!!.dismiss()
 
                 when {

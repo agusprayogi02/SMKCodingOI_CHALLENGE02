@@ -103,7 +103,9 @@ class ProfilFragment : Fragment() {
                     }
                     viewModel.insertAll(users)
                 }
-                dismissLoading(swipe_profil)
+                if (swipe_profil != null) {
+                    dismissLoading(swipe_profil)
+                }
             }
 
         })

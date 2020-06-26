@@ -63,7 +63,9 @@ class NewsFragment : Fragment() {
 
             override fun onFailure(call: Call<NewsHealth>, t: Throwable) {
                 tampilToast(context!!, "Gagal " + t.message)
-                dismissLoading(swipe_news)
+                if (swipe_news != null) {
+                    dismissLoading(swipe_news)
+                }
 //                progressBar.dialog!!.dismiss()
             }
 
@@ -71,7 +73,9 @@ class NewsFragment : Fragment() {
                 call: Call<NewsHealth>,
                 response: Response<NewsHealth>
             ) {
-                dismissLoading(swipe_news)
+                if (swipe_news != null) {
+                    dismissLoading(swipe_news)
+                }
 //                progressBar.dialog!!.dismiss()
 
                 when {
@@ -110,7 +114,7 @@ class NewsFragment : Fragment() {
         list_news.layoutManager = LinearLayoutManager(context)
         viewModel.newsAll.observe(viewLifecycleOwner, Observer { list ->
             list.let {
-                list_news.adapter = NewsAdapter(requireContext(), it) {data->
+                list_news.adapter = NewsAdapter(requireContext(), it) { data ->
                     CountryData.Session(context)
                     CountryData["urlNews"] = data.url
                     CountryData["source"] = data.author

@@ -76,7 +76,7 @@ class CheckUpFragment : Fragment() {
                 kesimpulan.setTextColor(color)
                 hasil_test.setTextColor(color)
                 btn_check_up.text = "Check Up Again"
-                btn_check_up.setPadding(10,0,10,0)
+                btn_check_up.setPadding(10, 0, 10, 0)
             }
 
         })
@@ -104,7 +104,9 @@ class CheckUpFragment : Fragment() {
                     dataPeriksa.add(periksa!!)
                 }
                 viewModel.insertAll(dataPeriksa)
-                dismissLoading(swipe_check)
+                if (swipe_check != null) {
+                    dismissLoading(swipe_check)
+                }
             }
 
         })
@@ -112,13 +114,19 @@ class CheckUpFragment : Fragment() {
 
     private fun init(data: List<PeriksaModel>) {
         list_check_up.layoutManager = LinearLayoutManager(context)
-        adapter = PeriksaAdapter(requireContext(), data) {periksa->
-            ref.child(SessionData["UserData"]!!).child("History").child(periksa.Key).removeValue().addOnCompleteListener {
-                if (it.isSuccessful){
-                    AestheticDialog.showToaster(activity,"Hapus","Data Berhasil diHapus",AestheticDialog.SUCCESS)
-                    viewModel.delete(periksa)
+        adapter = PeriksaAdapter(requireContext(), data) { periksa ->
+            ref.child(SessionData["UserData"]!!).child("History").child(periksa.Key).removeValue()
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        AestheticDialog.showToaster(
+                            activity,
+                            "Hapus",
+                            "Data Berhasil diHapus",
+                            AestheticDialog.SUCCESS
+                        )
+                        viewModel.delete(periksa)
+                    }
                 }
-            }
         }
         list_check_up.adapter = adapter
     }
