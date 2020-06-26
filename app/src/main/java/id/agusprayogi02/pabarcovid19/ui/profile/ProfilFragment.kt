@@ -27,7 +27,7 @@ class ProfilFragment : Fragment() {
 
     private val mRef = FirebaseDatabase.getInstance()
     private val viewModel by viewModels<UsersViewModel>()
-    lateinit var users:ArrayList<UsersModel>
+    lateinit var users: ArrayList<UsersModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +47,10 @@ class ProfilFragment : Fragment() {
         about_me.setOnClickListener {
             startActivity(Intent(context, AboutMeActivity::class.java))
         }
+
+        btn_change.setOnClickListener {
+            startActivity(Intent(context, UpdateProfileActivity::class.java))
+        }
         viewModel.init(requireContext())
         val auth = FirebaseAuth.getInstance()
         if (auth.currentUser!!.uid.isNotEmpty()) {
@@ -54,9 +58,9 @@ class ProfilFragment : Fragment() {
             val user = auth.currentUser
             val uid = user?.uid ?: SessionData["UserData"]
             getData(uid)
-            viewModel.allUsers.observe(viewLifecycleOwner, Observer {usr->
+            viewModel.allUsers.observe(viewLifecycleOwner, Observer { usr ->
                 usr.let {
-                    for (h in it){
+                    for (h in it) {
                         if (h.uid == uid) {
                             name_profil.text = h.name
                             no_phone.text = h.phone
