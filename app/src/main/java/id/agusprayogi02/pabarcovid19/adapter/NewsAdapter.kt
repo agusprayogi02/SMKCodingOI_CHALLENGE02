@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import id.agusprayogi02.pabarcovid19.R
+import id.agusprayogi02.pabarcovid19.database.entity.NewsModel
 import id.agusprayogi02.pabarcovid19.item.Article
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.news_item.*
@@ -15,8 +16,8 @@ import java.util.*
 
 class NewsAdapter(
     private val context: Context,
-    private val items: List<Article>,
-    private val listener: (Article) -> Unit
+    private val items: List<NewsModel>,
+    private val listener: (NewsModel) -> Unit
 ) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -32,12 +33,12 @@ class NewsAdapter(
 
     class ViewHolder(val context: Context, override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
-        fun bindItem(item: Article, listener: (Article) -> Unit) {
+        fun bindItem(item: NewsModel, listener: (NewsModel) -> Unit) {
             Glide.with(context).load(item.urlToImage).into(image_header)
             news_title.text = item.title
             news_isi.text = item.description
             news_date.text = item.publishedAt
-            news_dari.text = item.source.name
+            news_dari.text = item.author
             share_url.setOnClickListener {
                 val sendIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND

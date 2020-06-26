@@ -1,6 +1,7 @@
 package id.agusprayogi02.pabarcovid19.viewmodel
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import id.agusprayogi02.pabarcovid19.database.AppDatabase
@@ -11,10 +12,12 @@ import kotlinx.coroutines.launch
 
 class UsersViewModel() : ViewModel(){
     lateinit var repository: UsersRepository
+    lateinit var allUsers:LiveData<List<UsersModel>>
 
     fun init(context: Context){
         val usersDao = AppDatabase.getDatabase(context).usersDao()
         repository = UsersRepository(usersDao)
+        allUsers = repository.allUsers
     }
 
     fun addData(user:UsersModel) = viewModelScope.launch(Dispatchers.IO){

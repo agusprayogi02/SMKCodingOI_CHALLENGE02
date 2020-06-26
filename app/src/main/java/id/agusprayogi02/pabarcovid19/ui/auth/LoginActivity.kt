@@ -12,9 +12,12 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.thecode.aestheticdialogs.AestheticDialog
 import id.agusprayogi02.pabarcovid19.MainActivity
 import id.agusprayogi02.pabarcovid19.R
+import id.agusprayogi02.pabarcovid19.database.entity.UsersModel
 import id.agusprayogi02.pabarcovid19.session.SessionData
 import id.agusprayogi02.pabarcovid19.util.CustomProgressBar
 import kotlinx.android.synthetic.main.activity_login.*
@@ -22,6 +25,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : AppCompatActivity() {
 
     private var auth = FirebaseAuth.getInstance()
+    private lateinit var mref: DatabaseReference
     private lateinit var googleSignInClient: GoogleSignInClient
     private val progressBar = CustomProgressBar()
 
@@ -43,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
+        mref = FirebaseDatabase.getInstance().reference
 
         btn_login.setOnClickListener {
             EmailSignIn()
@@ -74,7 +79,32 @@ class LoginActivity : AppCompatActivity() {
 //                                "Berhasil Masuk",
 //                                AestheticDialog.SUCCESS
 //                            )
-                            updateUI(auth.currentUser)
+                            val dt = auth.currentUser
+                            val data = dt?.uid?.let { it1 ->
+                                dt.displayName?.let { it2 ->
+                                    dt.email?.let { it3 ->
+                                        dt.phoneNumber?.let { it4 ->
+                                            UsersModel(
+                                                it1,
+                                                it2,
+                                                it3,
+                                                "",
+                                                it4,
+                                                "",
+                                                "",
+                                                "",
+                                                dt.photoUrl.toString()
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                            mref.child("Users").child(dt!!.uid).push().setValue(data)
+                                .addOnCompleteListener { user ->
+                                    if (user.isSuccessful) {
+                                        updateUI(dt)
+                                    }
+                                }
                         } else Log.w(TAG, "signInWithCredential:failure", it.exception)
                         progressBar.dialog!!.dismiss()
                     }
@@ -116,6 +146,7 @@ class LoginActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
+
                     updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.

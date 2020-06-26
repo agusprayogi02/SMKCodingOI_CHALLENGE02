@@ -37,6 +37,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
+    override fun onNewToken(token : String) {
+        Log.d(TAG, "Refreshed token: $token")
+    }
+
     private fun sendNotification(msg: String) {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

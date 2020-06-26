@@ -10,7 +10,7 @@ import id.agusprayogi02.pabarcovid19.database.entity.CoronaModel
 @Dao
 interface CoronaDao {
 
-    @Query("SELECT * FROM corona ORDER BY deaths DESC")
+    @Query("SELECT * FROM corona ORDER BY confirmed DESC")
     fun getAllConfirm(): LiveData<List<CoronaModel>>
 
     @Query("SELECT * FROM corona ORDER BY deaths DESC")
