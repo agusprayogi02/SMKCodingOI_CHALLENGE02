@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.thecode.aestheticdialogs.AestheticDialog
 import id.agusprayogi02.pabarcovid19.MainActivity
@@ -25,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : AppCompatActivity() {
 
     private var auth = FirebaseAuth.getInstance()
-    private lateinit var mref: DatabaseReference
+    private lateinit var mref: FirebaseDatabase
     private lateinit var googleSignInClient: GoogleSignInClient
     private val progressBar = CustomProgressBar()
 
@@ -42,12 +40,12 @@ class LoginActivity : AppCompatActivity() {
         }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.web_client))
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
-        mref = FirebaseDatabase.getInstance().reference
+        mref = FirebaseDatabase.getInstance()
 
         btn_login.setOnClickListener {
             EmailSignIn()
@@ -80,31 +78,7 @@ class LoginActivity : AppCompatActivity() {
 //                                AestheticDialog.SUCCESS
 //                            )
                             val dt = auth.currentUser
-                            val data = dt?.uid?.let { it1 ->
-                                dt.displayName?.let { it2 ->
-                                    dt.email?.let { it3 ->
-                                        dt.phoneNumber?.let { it4 ->
-                                            UsersModel(
-                                                it1,
-                                                it2,
-                                                it3,
-                                                "",
-                                                it4,
-                                                "",
-                                                "",
-                                                "",
-                                                dt.photoUrl.toString()
-                                            )
-                                        }
-                                    }
-                                }
-                            }
-                            mref.child("Users").child(dt!!.uid).push().setValue(data)
-                                .addOnCompleteListener { user ->
-                                    if (user.isSuccessful) {
-                                        updateUI(dt)
-                                    }
-                                }
+                            updateUI(dt)
                         } else Log.w(TAG, "signInWithCredential:failure", it.exception)
                         progressBar.dialog!!.dismiss()
                     }
@@ -114,7 +88,7 @@ class LoginActivity : AppCompatActivity() {
                         AestheticDialog.showToaster(
                             this,
                             "Gagal Login",
-                            "Email atau Password Salah",
+                            it.message,
                             AestheticDialog.ERROR
                         )
                     }
@@ -128,26 +102,53 @@ class LoginActivity : AppCompatActivity() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account!!)
+                Log.d(TAG, "firebaseAuthWithGoogle:" + account!!.id)
+                firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
                 Log.w(TAG, "Google sign in failed", e)
             }
         }
     }
 
-    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + account.id!!)
-
+    private fun firebaseAuthWithGoogle(idToken: String) {
         progressBar.show(this, "Tunggu Sebentar...")
-        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
-
-                    updateUI(user)
+                    val dt = auth.currentUser
+                    val no = when {
+                        dt?.phoneNumber.isNullOrEmpty() -> ""
+                        else -> dt?.phoneNumber
+                    }
+                    val data = UsersModel(
+                        dt!!.uid,
+                        dt.displayName!!,
+                        dt.email!!,
+                        "",
+                        no!!,
+                        "",
+                        "",
+                        "",
+                        dt.photoUrl.toString()
+                    )
+                    mref.getReference("Users/${dt.uid}").setValue(data)
+                        .addOnCompleteListener { user ->
+                            if (user.isSuccessful) {
+                                updateUI(dt)
+                            }
+                        }.addOnFailureListener {
+                            Log.d("Main", "signInWithCredential:failure")
+                            progressBar.dialog!!.dismiss()
+                            AestheticDialog.showToaster(
+                                this,
+                                "Gagal Login",
+                                "Email atau Password Salah",
+                                AestheticDialog.ERROR
+                            )
+                        }
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -172,8 +173,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if (auth.currentUser != null) {
-            val currentUser = auth.currentUser
-            updateUI(currentUser)
+            val dt = auth.currentUser
+            updateUI(dt)
         }
     }
 

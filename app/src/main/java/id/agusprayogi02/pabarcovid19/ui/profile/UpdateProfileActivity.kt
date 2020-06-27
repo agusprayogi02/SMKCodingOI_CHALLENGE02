@@ -12,13 +12,14 @@ import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import id.agusprayogi02.pabarcovid19.R
 import id.agusprayogi02.pabarcovid19.database.entity.UsersModel
-import id.agusprayogi02.pabarcovid19.session.SessionData
+import id.agusprayogi02.pabarcovid19.util.CustomProgressBar
 import id.agusprayogi02.pabarcovid19.util.getRandomString
 import id.agusprayogi02.pabarcovid19.util.tampilToast
 import id.agusprayogi02.pabarcovid19.viewmodel.UsersViewModel
@@ -45,6 +46,7 @@ class UpdateProfileActivity : AppCompatActivity() {
     lateinit var pass: String
     lateinit var pp: String
     var urlDown: String? = null
+    private val progressBar = CustomProgressBar()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +56,7 @@ class UpdateProfileActivity : AppCompatActivity() {
         mref = FirebaseDatabase.getInstance().reference
         storageReference = FirebaseStorage.getInstance().reference
 
-        uid = SessionData["UserData"].toString()
+        uid = FirebaseAuth.getInstance().currentUser!!.uid
         setSpinner()
         clicked()
         viewModel.allUsers.observeForever { list ->
@@ -119,6 +121,7 @@ class UpdateProfileActivity : AppCompatActivity() {
     }
 
     private fun uploadImage() {
+        progressBar.show(this, "Mengunggah Foto...")
         val rand = getRandomString(12)
         val storRef = storageReference.child("Users/Fotos/$rand")
         image_change.isDrawingCacheEnabled = true
@@ -134,18 +137,20 @@ class UpdateProfileActivity : AppCompatActivity() {
         val dt = baos.toByteArray()
 
         storRef.putBytes(dt).addOnFailureListener {
+            progressBar.dialog?.dismiss()
             tampilToast(this, it.message.toString())
         }.addOnSuccessListener {
             tampilToast(this, "Berhasil Upload Foto!")
             it.metadata?.reference!!.downloadUrl.addOnSuccessListener { uri ->
                 urlDown = uri.toString()
+                progressBar.dialog?.dismiss()
                 pushData()
             }
         }
-
     }
 
     private fun pushData() {
+        progressBar.show(this, "Update Data...")
         pp = when {
             urlDown.isNullOrEmpty() -> {
                 "Not"
@@ -165,7 +170,11 @@ class UpdateProfileActivity : AppCompatActivity() {
         )
         mref.child("Users").child(uid).setValue(user).addOnSuccessListener {
             viewModel.updateData(user)
+            progressBar.dialog!!.dismiss()
             finish()
+        }.addOnFailureListener {
+            progressBar.dialog?.dismiss()
+            tampilToast(baseContext, it.message.toString())
         }
     }
 

@@ -57,6 +57,7 @@ class ProfilFragment : Fragment() {
             showLoading(requireContext(), swipe_profil)
             val user = auth.currentUser
             val uid = user?.uid ?: SessionData["UserData"]
+
             getData(uid)
             viewModel.allUsers.observe(viewLifecycleOwner, Observer { usr ->
                 usr.let {
