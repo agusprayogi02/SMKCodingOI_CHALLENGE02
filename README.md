@@ -33,11 +33,13 @@ Sumber APi :
 
 ## **2. Halaman Periksa**
 
-![alt text](ScreenShots/Perikasa.png)\
+![alt text](ScreenShots/Periksa.png)\
 **Penjelasan :**
 
 Digunakan untuk mengecek apakah anda terpapar virus Corona dan agar anda bisa tahu gejala awal Virus ini.\
-Halaman ini merupakan Webview yang saya ambil dari situs website Satgas Jawa Timur => [Satgas Jatim](https://checkupcovid19.jatimprov.go.id/covid19/#!/checkup/)
+1. Tombol Check Up => untuk menampilkan menu SupPeriksa
+2. Kesimpulan => untuk memberi saran kepada user 
+3. SubPeriksa => digunakan untuk memeriksa kondisi kita sekarang dengan menjawab pertanyaan yang ada
 
 #
 
@@ -62,6 +64,7 @@ halaman untuk melihat berita seputar kesehatan diindonesia
 1. Tombol About Me => untuk masuk kedalam halaman About.
 2. Tompol Keluar Akun => untuk keluar dari akun email / google yang sedang digunakan.
 3. Tombol Kembali => untuk kembali kedalam halaman Home
+4. Tombol Edit Profil => untuk menggubah data user account
 
 #
 
