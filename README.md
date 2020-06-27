@@ -3,7 +3,7 @@
 ### Aplikasi Apa Kabar Covid-19
 
 Memantau Perkembangan dan Berita terbaru seputar Covid-19 sekarang bisa lewat aplikasi android lho😊.\
-Buruan download aplikasinya di sini => [Apa Kabar Covid-19](https://drive.google.com/open?id=1j6iqkCjzzmQrFazU2tNMZaz_5CXQjQJf)
+Buruan download aplikasinya di sini => [Apa Kabar Covid-19](app/release/app-release.apk)
 
 Sumber APi :
 
