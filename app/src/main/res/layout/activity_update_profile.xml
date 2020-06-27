@@ -176,7 +176,7 @@
                         android:background="@drawable/btn_default_selector"
                         android:fontFamily="@font/sf_bold"
                         android:paddingHorizontal="15dp"
-                        android:text="Daftar Akun"
+                        android:text="Ubah Data"
                         android:textAllCaps="false"
                         android:textColor="@color/white" />
 

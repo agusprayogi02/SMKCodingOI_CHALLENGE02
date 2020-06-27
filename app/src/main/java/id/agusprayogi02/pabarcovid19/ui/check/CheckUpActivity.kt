@@ -109,7 +109,7 @@ class CheckUpActivity : AppCompatActivity() {
                 val tgl = Date()
                 val uid = SessionData["UserData"]
                 val data =
-                    PeriksaModel(getRandomString(9999), nilai.toString(), jawab, tgl.toString())
+                    PeriksaModel(getRandomString(12), nilai.toString(), jawab, tgl.toString())
                 ref.child(uid!!).child("History").push().setValue(data).addOnCompleteListener {
                     tampilToast(this, "Data Berhasil Disimpan")
                     if (it.isSuccessful) {
